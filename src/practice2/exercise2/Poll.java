@@ -10,7 +10,7 @@ public class Poll {
     private String surveyPerson;
     private int dni;
     private boolean surveyAnswered;
-    public static int quantityPoll;
+    private static int quantityPoll;
 
     private Poll(){
         this.pollId = ++quantityPoll;
@@ -65,8 +65,12 @@ public class Poll {
         return surveyAnswered;
     }
 
-    public void setSurveyAnswered(boolean surveyAnswered) {
-        this.surveyAnswered = surveyAnswered;
+    public static int getQuantityPoll(){
+        return quantityPoll;
+    }
+
+    public void finishPoll(){
+        this.surveyAnswered = true;
     }
 
 }
