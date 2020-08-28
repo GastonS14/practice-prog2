@@ -8,11 +8,9 @@ public class Serie extends AbstractElement{
     private String author;
     private String genre;
 
-    public Serie(String tittle, String description, String author, String genre){
+    public Serie(String tittle, String description){
         super(tittle, description);
         season = new Vector<>();
-        this.author = author;
-        this.genre = genre;
     }
 
     public String getAuthor() {
@@ -43,10 +41,8 @@ public class Serie extends AbstractElement{
     @Override
     public int getNumberEpisodesWatched() {
         int quantity = 0;
-        for (AbstractElement s: season) {
-            if(s.isViewed())
-                quantity++;
-        }
+        for (AbstractElement s: season)
+            quantity += s.getNumberEpisodesWatched();
         return quantity;
     }
 
@@ -57,4 +53,28 @@ public class Serie extends AbstractElement{
     public void removeSeason(AbstractElement e){
         season.remove(e);
     }
+
+    @Override
+    public double getAverageQualification(){
+        double sum = 0;
+        int quantity = 0;
+        Vector<Episode> episodes = this.getEpisode();
+        for(Episode e:episodes){
+            if(e.isViewed() && e.validateQualification()){
+                sum += e.getQualification();
+                quantity++;
+            }
+        }
+
+        return sum/quantity;
+    }
+
+    @Override
+    public Vector<Episode> getEpisode(){
+        Vector<Episode> aux = new Vector<Episode>();
+        for(AbstractElement s: season)
+            aux.addAll(s.getEpisode());
+        return aux;
+    }
+
 }

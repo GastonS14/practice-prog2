@@ -1,5 +1,7 @@
 package practice3.exercise4;
 
+import java.util.Vector;
+
 public class Episode extends AbstractElement{
 
     private boolean isViewed;
@@ -21,14 +23,14 @@ public class Episode extends AbstractElement{
     }
 
     public int getQualification() {
-        return qualification;
+        return this.qualification;
     }
 
     public void setQualification(int qualification) {
-        if(qualification < 1 || qualification > 5)
-            System.out.println("El valor está fuera de rango, por favor la calificaciíón es entre 1 y 5");
-        else
+        if(qualification >= 1 && qualification <= 5)
             this.qualification = qualification;
+        else
+            System.out.println("El valor " + qualification + " está fuera de rango, por favor la calificación debe ser entre 1 y 5.");
     }
 
     @Override
@@ -37,6 +39,22 @@ public class Episode extends AbstractElement{
             return 1;
         else
             return 0;
+    }
+
+    @Override
+    public double getAverageQualification() {
+        return this.getQualification();
+    }
+
+    public boolean validateQualification() {
+        return this.qualification >= 1 && this.qualification <= 5;
+    }
+
+    @Override
+    public Vector<Episode> getEpisode(){
+        Vector<Episode> aux = new Vector<>();
+        aux.add(this);
+        return aux;
     }
 
 }

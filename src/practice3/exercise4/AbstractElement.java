@@ -1,5 +1,7 @@
 package practice3.exercise4;
 
+import java.util.Vector;
+
 public abstract class AbstractElement {
 
     private String tittle;
@@ -29,4 +31,8 @@ public abstract class AbstractElement {
     public abstract boolean isViewed();
 
     public abstract int getNumberEpisodesWatched();
+
+    public abstract double getAverageQualification();
+
+    public abstract Vector<Episode> getEpisode();
 }
