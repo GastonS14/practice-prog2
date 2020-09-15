@@ -3,8 +3,6 @@ package practice3.exercise1;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.Period;
-import java.util.Calendar;
-import java.util.Date;
 
 public class Persona {
 
