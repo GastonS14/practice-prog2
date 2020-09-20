@@ -2,6 +2,7 @@ package practice5.exercise1;
 
 import java.util.Collections;
 import java.util.Vector;
+import java.util.function.Consumer;
 
 public class Pile {
 
@@ -38,6 +39,22 @@ public class Pile {
 
         for(int i=pi.size()-1; i>=0; i--)
             aux.add(pi.elementAt(i));
+
+        return aux;
+    }
+
+    public Vector<String> a(){
+        Vector<String> aux = new Vector<>();
+
+        /*///////////FOREACH WITH IT
+        for (String p: pi) {
+
+        }
+
+        pi.forEach(it -> aux.add(it));
+
+        map.put(it, e) is the same filed[it] = e
+         */
 
         return aux;
     }
