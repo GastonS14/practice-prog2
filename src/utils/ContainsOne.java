@@ -25,6 +25,15 @@ public class ContainsOne {
         vector.remove(o);
     }
 
+    /*
+    //Ascendent order
+    Collections.sort(List);
+    //Descendent Order
+    Collections.reverse(List);
+    //Get the first element
+    List.elelementAt(0)
+     */
+
 }
 
 
