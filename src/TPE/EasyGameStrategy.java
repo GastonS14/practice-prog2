@@ -22,7 +22,7 @@ public class EasyGameStrategy implements GameStrategy{
      * @param player1 player to add the cards
      * @param cards cards tod be added to a player
      */
-    private void method(Player player1, ArrayList<Card> cards) {
+    private void nextRound(Player player1, ArrayList<Card> cards) {
         player1.addCards(cards);
         player1.setTurn(true);
     }
@@ -42,7 +42,7 @@ public class EasyGameStrategy implements GameStrategy{
         game.getDeckGame().dealCards(playerA, playerB);
         int rounds = 0;
         playerA.setTurn(true);
-        while (rounds < maxRounds || playerA.isNotEmpty() || playerB.isNotEmpty()) {
+        while (rounds < maxRounds && playerA.isNotEmpty() && playerB.isNotEmpty()) {
             Card cardPlayerA = playerA.getCard();
             Card cardPlayerB = playerB.getCard();
             String fightAttribute = cardPlayerA.getRandomAttribute();
@@ -54,21 +54,29 @@ public class EasyGameStrategy implements GameStrategy{
                 cards.add(cardPlayerA);
                 cards.add(cardPlayerB);
                 if (valueCardA > valueCardB)
-                    this.method(playerA, cards);
+                    this.nextRound(playerA, cards);
                 else
-                    this.method(playerB, cards);
+                    this.nextRound(playerB, cards);
             } else {
                 ArrayList<Card> cardA = new ArrayList<>();
                 cardA.add(cardPlayerA);
-                this.method(playerA, cardA);
+                this.nextRound(playerA, cardA);
                 ArrayList<Card> cardB = new ArrayList<>();
                 cardB.add(cardPlayerB);
-                this.method(playerB, cardB);
+                this.nextRound(playerB, cardB);
             }
 
             rounds++;
         }
 
+        this.printWinner(playerA, playerB);
+    }
+
+    private void printWinner(String winner){
+        System.out.println(winner);
+    }
+
+    private void printWinner(Player playerA, Player playerB){
         int cardCountA = playerA.getCountCards();
         int cardCountB = playerB.getCountCards();
 
@@ -78,10 +86,6 @@ public class EasyGameStrategy implements GameStrategy{
             this.printWinner(playerB.getName());
         else
             this.printWinner("Tie");
-    }
-
-    public void printWinner(String winner){
-        System.out.println(winner);
     }
 
 }

@@ -98,11 +98,11 @@ public class Deck {
     public void dealCards(Player playerA, Player playerB){
         for(int i = cards.size()-1; i>=0; i--){
             playerA.addCard(cards.get(i));
-            cards.remove(cards.get(i));
+            cards.remove(i);
             i--;
             if(i > 0){
                 playerB.addCard(cards.get(i));
-                cards.remove(cards.get(i));
+                cards.remove(i);
             }
         }
     }

@@ -23,62 +23,12 @@ Empate:
     se sigue jugando con la siguiente carta
     el jugador mantiene el turno
 --------------------------------------------------------------------------------------------------------------
-CARTA
-HashMap atributos<String, Integer>
-
-DECK
-metodo para crear un nuevo mazo
-Validar que un mazo de cartas tenga todas sus cartas correctas (mismos atributos y cantidad)
-
-GAME
-2 jugadores
-metodos
------
-+play(maximoRondas) -> win = {
-    mientras queden rondas o ninguno de los dos se quede sin cartas
-        seguir jugando
-    ganador = quien tiene mas cartas
-}
----------------GAME STRATEGY---------------
--seleccionar atributo por el que jugar
-    -selectAttribute -> random selection dentro de los atributos
--guardar de quien es la carta y la carta que compite
-    pedirle el valor de atributo de carta 1
-    pedirle el valor de atributo de carta 2
-    -ganadorRonda ->
-    ganador.addCartas(carta 1, carta 2) -> darle las dos cartas al que gana
-    -ganador.guardarAbajo
-    -ganador.tomarTurno(elegir atributo)
-        ganador.card.selectAttribute()
-
--ganadorRonda
-    le paso las dos cartas
-        si carta 1 gana carta 2
-            return carta 1
-        si carta 2 gana carta 1
-            return carta 2
-        si carta 1 = carta 2
-        -guardarAbajo -> devolver cartas a cada jugador
-    decidir quien gano y devolver el ganador
-
--tomarTurno
-    ganador siempre tiene turno
-    en caso de empate mantener turno
-
--guardar abajo(list cards)
-    collections.reverse
-    player.deck.add(cards)
-    collections.reverse
-
-
-PLAYER
--deck
 ---------------IDK---------------
-WHEN card say getCard, the arrayList remove the card? Check it
 ---------------IMPROVEMENTS---------------
 CARD// Implement comparator for attributes in Card
 DECK// If i remove the first card of the deck, i lose the archetypeCard
-DECK// if I deal the cards, I never set the deck archetype because it shouldn't have ->
-    // Should players have a deck?
+GAME// Replace 2 player for arrayList of Players(extended)
+GAME// Should be have an arrayList of gameStrategy instead of one
+EASY_GAME_STRATEGY// Win condition should be implement compare
 ---------------IMPROVEMENTS2---------------
 DECK// Deal cards in different ways -> Interface

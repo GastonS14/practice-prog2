@@ -11,7 +11,7 @@ public class Player {
     public Player(String name){
         this.name = name;
         this.turn = false;
-        this.deck = new Deck("Deck");
+        this.deck = new Deck("Deck-"+name);
     }
 
     public String getName() {
