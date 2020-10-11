@@ -36,18 +36,19 @@ public class Deck {
         cards.add(c);
     }
 
+    public void addCards(ArrayList<Card> cards){
+        this.cards.addAll(cards);
+    }
+
     public void removeCard(Card c){
         cards.remove(c);
     }
 
     public Card getCard(){
-        return this.pop();
-    }
-
-    private Card pop(){
         if(!cards.isEmpty())
-            return cards.get(cards.size()-1);
-        return null;
+            return cards.get(0);
+        else
+            return null;
     }
 
     public Card getCardArchetype() {

@@ -23,38 +23,6 @@ Empate:
     se sigue jugando con la siguiente carta
     el jugador mantiene el turno
 --------------------------------------------------------------------------------------------------------------
----------------GAME STRATEGY---------------
--seleccionar atributo por el que jugar
-    -selectAttribute -> random selection dentro de los atributos
--guardar de quien es la carta y la carta que compite
-    pedirle el valor de atributo de carta 1
-    pedirle el valor de atributo de carta 2
-    -ganadorRonda ->
-    ganador.addCartas(carta 1, carta 2) -> darle las dos cartas al que gana
-    -ganador.guardarAbajo
-    -ganador.tomarTurno(elegir atributo)
-        ganador.card.selectAttribute()
-
--ganadorRonda
-    le paso las dos cartas
-        si carta 1 gana carta 2
-            return carta 1
-        si carta 2 gana carta 1
-            return carta 2
-        si carta 1 = carta 2
-        -guardarAbajo -> devolver cartas a cada jugador
-    decidir quien gano y devolver el ganador
-
--takeTurn
-    winner -> always have the turn
-    tie -> playerTurn is the same
-
--putDown
-    collections.reverse
-    player.deck.add(cards)
-    collections.reverse
-
-
 ---------------IDK---------------
 WHEN card say getCard, the arrayList remove the card? Check it
 HOW to determine the winner? Maybe both still have cards -> GENERAL WIN CONDITION

@@ -1,14 +1,16 @@
 package TPE;
 
+import java.util.ArrayList;
+
 public class Player {
 
     private String name;
-    private Boolean myTurn;
+    private Boolean turn;
     private Deck deck;
 
     public Player(String name){
         this.name = name;
-        this.myTurn = false;
+        this.turn = false;
         this.deck = new Deck("Deck");
     }
 
@@ -21,15 +23,19 @@ public class Player {
     }
 
     public Boolean isMyTurn() {
-        return myTurn;
+        return turn;
     }
 
-    public void setMyTurn(Boolean myTurn) {
-        this.myTurn = myTurn;
+    public void setTurn(Boolean turn) {
+        this.turn = turn;
     }
 
     public void addCard(Card card){
         deck.addCard(card);
+    }
+
+    public void addCards(ArrayList<Card> cards){
+        deck.addCards(cards);
     }
 
     public boolean isNotEmpty(){
@@ -38,5 +44,9 @@ public class Player {
 
     public Card getCard(){
         return deck.getCard();
+    }
+
+    public int getCountCards(){
+        return this.deck.getSize();
     }
 }
