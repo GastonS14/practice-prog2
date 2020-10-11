@@ -1,0 +1,74 @@
+Un mazo de cartas consiste en una colección de cartas con iguales características
+Cada carta consiste en un personaje y un conjunto de atributos numéricos que la definen.
+A continuación se muestra un ejemplo de 4 cartas pertenecientes a un mazo de cartas de super héroes.
+
+Cada personaje posee un nombre y 5 atributos que lo definen.
+Los atributos del ejemplo son Altura, Peso, Fuerza, Peleas Ganadas y Velocidad.
+Otro mazo de cartas diferentes podría tener otro número de atributos.
+En el juego participan dos jugadores
+Mecánica: Se reparten las cartas en dos partes (si el mazo posee un número impar de cartas, el jugador 1 poseerá una carta extra),
+    el primer jugador toma la primera carta en su posesión
+    selecciona de forma aleatoria un atributo de los disponibles
+    El jugador que posea la carta con mayor valor para ese atributo se lleva las dos cartas (se colocan al final de su mazo)
+    El ganador también tiene el turno en la siguiente ronda.
+    El juego term1ina cuando uno de los dos jugadores se queda sin cartas o se llega a un número máximo de rondas (lo que ocurra primero).
+
+Permitir la creación de mazos
+Validar que un mazo de cartas tenga todas sus cartas correctas (mismos atributos y cantidad).
+Todos los atributos tienen un nombre y un valor numérico.
+
+En la competencia entre dos atributos siempre gana el que posee el máximo valor numérico.
+Empate:
+    las cartas de ambos jugadores pasan al final de su mazo
+    se sigue jugando con la siguiente carta
+    el jugador mantiene el turno
+--------------------------------------------------------------------------------------------------------------
+---------------GAME STRATEGY---------------
+-seleccionar atributo por el que jugar
+    -selectAttribute -> random selection dentro de los atributos
+-guardar de quien es la carta y la carta que compite
+    pedirle el valor de atributo de carta 1
+    pedirle el valor de atributo de carta 2
+    -ganadorRonda ->
+    ganador.addCartas(carta 1, carta 2) -> darle las dos cartas al que gana
+    -ganador.guardarAbajo
+    -ganador.tomarTurno(elegir atributo)
+        ganador.card.selectAttribute()
+
+-ganadorRonda
+    le paso las dos cartas
+        si carta 1 gana carta 2
+            return carta 1
+        si carta 2 gana carta 1
+            return carta 2
+        si carta 1 = carta 2
+        -guardarAbajo -> devolver cartas a cada jugador
+    decidir quien gano y devolver el ganador
+
+-takeTurn
+    winner -> always have the turn
+    tie -> playerTurn is the same
+
+-putDown
+    collections.reverse
+    player.deck.add(cards)
+    collections.reverse
+
+
+---------------IDK---------------
+WHEN card say getCard, the arrayList remove the card? Check it
+HOW to determine the winner? Maybe both still have cards -> GENERAL WIN CONDITION
+    // IMPLEMENTATION -> WIN CONDITION ->
+        // if (PlayerA.deck.size > PlayerB.deck.size) -> PlayerA is the winner
+        // if (PlayerB.deck.size > PlayerA.deck.size) -> PlayerB is the winner
+        // if (PlayerA.deck.size == PlayerB.deck.size) -> Tie
+---------------IMPROVEMENTS---------------
+CARD// Implement comparator for attributes in Card
+DECK// If i remove the first card of the deck, i lose the archetypeCard
+DECK// if I deal the cards, I never set the deck archetype because it shouldn't have ->
+    // Should players have a deck?
+GAME// Replace 2 player for arrayList of Players(extended)
+GAME// Should be have an arrayList of gameStrategy instead of one
+EASY_GAME_STRATEGY// Win condition should be implement compare
+---------------IMPROVEMENTS2---------------
+DECK// Deal cards in different ways -> Interface

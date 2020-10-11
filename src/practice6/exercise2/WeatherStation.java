@@ -60,10 +60,7 @@ public class WeatherStation {
      * @return the average of the humidityRecords range
      */
     public double getAverageHumidity(int records) {
-        double aux = 0;
-        for(int i=humidityRecords.size()-1; i>= humidityRecords.size()-records; i--)
-            aux+=humidityRecords.elementAt(i);
-        return aux/records;
+        return getAverage(humidityRecords, records);
     }
 
     /**
@@ -104,10 +101,7 @@ public class WeatherStation {
      * @return the average of the rainPerHourRecords range
      */
     public double getAverageRain(int records) {
-        double aux = 0;
-        for(int i=rainPerHourRecords.size()-1; i>= rainPerHourRecords.size()-records; i--)
-            aux+=rainPerHourRecords.elementAt(i);
-        return aux/records;
+        return getAverage(rainPerHourRecords, records);
     }
 
     public double getLowestPrecipitation(int records){
@@ -152,4 +146,17 @@ public class WeatherStation {
         Collections.sort(aux);
         return aux.firstElement();
     }
+
+    /**
+     * if range > Vector.size() throws Null pointer exception
+     * @param range range of the vector
+     * @return the average in a Vector sequence
+     */
+    private double getAverage(Vector<Double> a, int range){
+        double aux = 0;
+        for(int i=a.size()-1; i>= a.size()-range; i--)
+            aux+=a.elementAt(i);
+        return aux/range;
+    }
+
 }
