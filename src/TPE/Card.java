@@ -28,9 +28,6 @@ public class Card {
     private int getRandom(){
         return (int) (Math.random() * MAX_RANDOM);
     }
-    private int getRandom(int max){
-        return (int) (Math.random() * max);
-    }
 
     public String getRandomAttribute(){
         Set<String> aux = attributes.keySet();

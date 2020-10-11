@@ -24,17 +24,9 @@ Empate:
     el jugador mantiene el turno
 --------------------------------------------------------------------------------------------------------------
 ---------------IDK---------------
-WHEN card say getCard, the arrayList remove the card? Check it
-HOW to determine the winner? Maybe both still have cards -> GENERAL WIN CONDITION
-    // IMPLEMENTATION -> WIN CONDITION ->
-        // if (PlayerA.deck.size > PlayerB.deck.size) -> PlayerA is the winner
-        // if (PlayerB.deck.size > PlayerA.deck.size) -> PlayerB is the winner
-        // if (PlayerA.deck.size == PlayerB.deck.size) -> Tie
 ---------------IMPROVEMENTS---------------
 CARD// Implement comparator for attributes in Card
 DECK// If i remove the first card of the deck, i lose the archetypeCard
-DECK// if I deal the cards, I never set the deck archetype because it shouldn't have ->
-    // Should players have a deck?
 GAME// Replace 2 player for arrayList of Players(extended)
 GAME// Should be have an arrayList of gameStrategy instead of one
 EASY_GAME_STRATEGY// Win condition should be implement compare

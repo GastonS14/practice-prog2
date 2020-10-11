@@ -19,7 +19,6 @@ public class EasyGameStrategy implements GameStrategy{
     }
 
     /**
-     *
      * @param player1 player to add the cards
      * @param cards cards tod be added to a player
      */

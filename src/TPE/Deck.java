@@ -44,10 +44,16 @@ public class Deck {
         cards.remove(c);
     }
 
+    /**
+     * Remove the card from the deck and returns it
+     * @return the last card of the deck
+     */
     public Card getCard(){
-        if(!cards.isEmpty())
-            return cards.get(0);
-        else
+        if(!cards.isEmpty()){
+            Card aux = cards.get(0);
+            cards.remove(0);
+            return aux;
+        } else
             return null;
     }
 
