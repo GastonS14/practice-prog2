@@ -57,7 +57,7 @@ public class Deck {
             return null;
     }
 
-    public Card getCardArchetype() {
+    private Card getCardArchetype() {
         return cardArchetype;
     }
 
@@ -72,7 +72,8 @@ public class Deck {
     public void addValidCard(Card c){
         if(cards.isEmpty()){
             this.addCard(c);
-            cardArchetype = c;
+            cardArchetype = new Card(c);
+            // cardArchetype = c;
         }else if(this.getCardArchetype().validateCard(c))
             this.addCard(c);
     }

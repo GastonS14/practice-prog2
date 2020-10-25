@@ -17,23 +17,15 @@ public class Card {
      */
     public Card(Card modelCard) {
         this();
-        this.attributes = modelCard.getAttributes();
-        int aux;
-        for (Map.Entry<String, Integer> entry : attributes.entrySet()) {
-            aux = this.getRandom();
-            entry.setValue(aux);
-        }
+        // this.attributes = modelCard.getAttributes();
+        this.attributes = new HashMap<>();
+        ArrayList<String> aux = modelCard.getAttributesName();
+        for (String s : aux)
+            this.addAttribute(s, modelCard.getValueAttribute(s));
     }
 
     private int getRandom(){
         return (int) (Math.random() * MAX_RANDOM);
-    }
-
-    public String getRandomAttribute(){
-        Set<String> aux = attributes.keySet();
-        List<String> attributeList = new ArrayList<>(aux);
-        Collections.shuffle(attributeList); // Random Order
-        return attributeList.get(0); // Return first element
     }
 
     public void addAttribute(String s,Integer b){
@@ -46,6 +38,10 @@ public class Card {
 
     public HashMap<String, Integer> getAttributes(){
         return (HashMap<String, Integer>) this.attributes.clone();
+    }
+
+    public ArrayList<String> getAttributesName(){
+        return new ArrayList<>(attributes.keySet());
     }
 
     public boolean containsAllAttributes(Card modelCard){
@@ -66,13 +62,12 @@ public class Card {
     }
 
     /**
-     *
      * @param c card to be validated
      * @return card with the same attributes as this
      */
     public boolean validateCard(Card c){
-        Set<String> card = ((HashMap<String, Integer>) this.attributes.clone()).keySet();
-        Set<String> modelCard = ((HashMap<String, Integer>) c.attributes.clone()).keySet();
+        Set<String> card = this.attributes.keySet();
+        Set<String> modelCard = c.attributes.keySet();
 
         return card.equals(modelCard);
     }

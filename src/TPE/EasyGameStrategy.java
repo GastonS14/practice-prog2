@@ -45,7 +45,7 @@ public class EasyGameStrategy implements GameStrategy{
         while (rounds < maxRounds && playerA.isNotEmpty() && playerB.isNotEmpty()) {
             Card cardPlayerA = playerA.getCard();
             Card cardPlayerB = playerB.getCard();
-            String fightAttribute = cardPlayerA.getRandomAttribute();
+            String fightAttribute = playerA.getFightAttribute(cardPlayerA);
             int valueCardA = cardPlayerA.getValueAttribute(fightAttribute);
             int valueCardB = cardPlayerB.getValueAttribute(fightAttribute);
 

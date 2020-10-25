@@ -1,6 +1,8 @@
 package TPE;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Player {
 
@@ -20,10 +22,6 @@ public class Player {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Boolean isMyTurn() {
-        return turn;
     }
 
     public void setTurn(Boolean turn) {
@@ -48,5 +46,11 @@ public class Player {
 
     public int getCountCards(){
         return this.deck.getSize();
+    }
+
+    public String getFightAttribute(Card card){
+        List<String> attributeList = card.getAttributesName();
+        Collections.shuffle(attributeList); // Random Order
+        return attributeList.get(0); // Return first element
     }
 }
