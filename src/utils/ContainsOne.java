@@ -1,28 +1,28 @@
 package utils;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class ContainsOne {
 
-    private Vector vector;
+    private ArrayList arrayList;
 
     public ContainsOne(){
-        vector = new Vector();
+        arrayList = new ArrayList();
     }
 
-    public boolean containsOne(Vector v){
-        for(int i=0; i<v.size(); i++)
-            if(vector.contains(v.elementAt(i)))
+    public boolean containsOne(ArrayList a){
+        for (Object o : a)
+            if (arrayList.contains(o))
                 return true;
         return false;
     }
 
     public void addVector(Object o){
-        vector.add(o);
+        arrayList.add(o);
     }
 
     public void removeVector(Object o){
-        vector.remove(o);
+        arrayList.remove(o);
     }
 
     /*

@@ -2,17 +2,17 @@ package practice5.exercise6;
 
 import utils.ContainsOne;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 public abstract class Evaluator2 {
 
     private String name;
     protected ContainsOne topics;
-    protected Vector<String> knownTopics;
+    protected ArrayList<String> knownTopics;
 
     public Evaluator2(String name){
         this.name = name;
-        knownTopics = new Vector<>();
+        knownTopics = new ArrayList<>();
     }
 
     public String getName() {
@@ -33,7 +33,7 @@ public abstract class Evaluator2 {
 
     public abstract boolean isSuitable(Work work);
 
-    public boolean containsOne(Vector<String> s){
+    public boolean containsOne(ArrayList<String> s){
         return topics.containsOne(s);
     }
 
