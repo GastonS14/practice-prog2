@@ -47,7 +47,7 @@ public class Card {
         return modelCard.validateCard(this);
     }
 
-    @Deprecated(since = "Should be compare between key and values, actually only for keys")
+//    @Deprecated(since = "Should be compare between key and values, actually only for keys")
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
