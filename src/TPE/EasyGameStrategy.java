@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class EasyGameStrategy implements GameStrategy{
 
     private int maxRounds;
-    private Player turnPlayer;
+    public Player turnPlayer;
 
     public EasyGameStrategy(int maxRounds){
         this.maxRounds = maxRounds;
