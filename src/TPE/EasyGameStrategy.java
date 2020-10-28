@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class EasyGameStrategy implements GameStrategy{
 
     private int maxRounds;
+    private Player turnPlayer;
 
     public EasyGameStrategy(int maxRounds){
         this.maxRounds = maxRounds;
@@ -18,13 +19,21 @@ public class EasyGameStrategy implements GameStrategy{
         this.maxRounds = maxRounds;
     }
 
+    public Player getTurnPlayer() {
+        return turnPlayer;
+    }
+
+    private void setTurnPlayer(Player turnPlayer) {
+        this.turnPlayer = turnPlayer;
+    }
+
     /**
      * @param player1 player to add the cards
      * @param cards cards tod be added to a player
      */
     private void nextRound(Player player1, ArrayList<Card> cards) {
         player1.addCards(cards);
-        player1.setTurn(true);
+        this.setTurnPlayer(player1);
     }
 
     /**
@@ -41,11 +50,14 @@ public class EasyGameStrategy implements GameStrategy{
         Player playerB = game.getPlayerB();
         game.getDeckGame().dealCards(playerA, playerB);
         int rounds = 0;
-        playerA.setTurn(true);
+        Player winTurn = playerA;
+        this.setTurnPlayer(winTurn);
         while (rounds < maxRounds && playerA.isNotEmpty() && playerB.isNotEmpty()) {
+            Card cardPlayerWinTurn = winTurn.getCard();
             Card cardPlayerA = playerA.getCard();
             Card cardPlayerB = playerB.getCard();
-            String fightAttribute = playerA.getFightAttribute(cardPlayerA);
+            String fightAttribute = winTurn.getFightAttribute(cardPlayerWinTurn);
+            // String fightAttribute = playerA.getFightAttribute(cardPlayerA);
             int valueCardA = cardPlayerA.getValueAttribute(fightAttribute);
             int valueCardB = cardPlayerB.getValueAttribute(fightAttribute);
 

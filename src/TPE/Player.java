@@ -7,12 +7,10 @@ import java.util.List;
 public class Player {
 
     private String name;
-    private Boolean turn;
     private Deck deck;
 
     public Player(String name){
         this.name = name;
-        this.turn = false;
         this.deck = new Deck("Deck-"+name);
     }
 
@@ -22,10 +20,6 @@ public class Player {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setTurn(Boolean turn) {
-        this.turn = turn;
     }
 
     public void addCard(Card card){
@@ -50,7 +44,7 @@ public class Player {
 
     public String getFightAttribute(Card card){
         List<String> attributeList = card.getAttributesName();
-        Collections.shuffle(attributeList); // Random Order
-        return attributeList.get(0); // Return first element
+        Collections.shuffle(attributeList);
+        return attributeList.get(0);
     }
 }

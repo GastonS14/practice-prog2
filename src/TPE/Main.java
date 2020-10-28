@@ -29,8 +29,9 @@ public class Main {
         deck.addCard(a1);
         deck.addCard(b1);
         deck.addCard(c1);
+        deck.addCard(d1);
 
-        GameStrategy gameS = new EasyGameStrategy(2);
+        GameStrategy gameS = new EasyGameStrategy(4);
         Game game = new Game("prueba", a, b, deck, gameS);
         game.playGame();
 
