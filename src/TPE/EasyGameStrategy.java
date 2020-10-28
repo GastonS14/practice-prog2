@@ -57,7 +57,6 @@ public class EasyGameStrategy implements GameStrategy{
             Card cardPlayerA = playerA.getCard();
             Card cardPlayerB = playerB.getCard();
             String fightAttribute = winTurn.getFightAttribute(cardPlayerWinTurn);
-            // String fightAttribute = playerA.getFightAttribute(cardPlayerA);
             int valueCardA = cardPlayerA.getValueAttribute(fightAttribute);
             int valueCardB = cardPlayerB.getValueAttribute(fightAttribute);
 

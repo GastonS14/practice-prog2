@@ -17,7 +17,6 @@ public class Card {
      */
     public Card(Card modelCard) {
         this();
-        // this.attributes = modelCard.getAttributes();
         this.attributes = new HashMap<>();
         ArrayList<String> aux = modelCard.getAttributesName();
         for (String s : aux)
