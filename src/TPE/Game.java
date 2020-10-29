@@ -30,31 +30,27 @@ public class Game {
 
     public void play() {
         deck.dealCards(turnPlayer, nextPlayer);
-        if ( ! isGameFinished() ) {
-        	Card turnPlayerCard = turnPlayer.getCard();
-        	Card nextPlayerCard = nextPlayer.getCard();
-        	String attribute = turnPlayer.getAttribute(turnPlayerCard);
-        	Player roundWinner = getRoundWinner(turnPlayerCard, nextPlayerCard, attribute);
+        while ( ! isGameFinished() ) {
+        	Card turnPlayerCard = turnPlayer.getCard(); // Tomo carta del jugador que tiene el turno
+        	Card nextPlayerCard = nextPlayer.getCard(); // Tomo carta del jugador que no tiene el turno
+        	String attribute = turnPlayer.getAttribute(turnPlayerCard); // Atributo por el cual competirán
+        	Player roundWinner = getRoundWinner(turnPlayerCard, nextPlayerCard, attribute); // Ganador de la ronda
         	roundsPlayed++;
-        	if ( roundWinner != null) { // Si hubo ganador de la ronda...
+        	// Si alguien gano la ronda le doy las dos cartas
+        	if ( roundWinner != null) { 
         		roundWinner.dealCard(nextPlayerCard);
         		roundWinner.dealCard(turnPlayerCard);
-            	printRound(attribute, turnPlayerCard, nextPlayerCard, roundWinner);
-            	// Checkeo si algún jugador se quedó sin cartas
-            	if ( isGameFinished() ) {
-            		printWinner();
-            	}
             	// Si el que ganó la ronda es diferente al que tiene al turno...
             	if ( ! roundWinner.equals(turnPlayer))
             		changeTurn(roundWinner);
         	} else {
+        		// Si no hay ganador, les regreso las cartas a los jugadores
         		turnPlayer.dealCard(turnPlayerCard);
         		nextPlayer.dealCard(nextPlayerCard);
-            	printRound(attribute, turnPlayerCard, nextPlayerCard, roundWinner);
-            	if ( isGameFinished() ) {
-            		printWinner();
-            	}
         	}
+        	printRound(attribute, turnPlayerCard, nextPlayerCard, roundWinner);
+        	if ( isGameFinished() )
+        		printWinner();
         }
     }
 

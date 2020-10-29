@@ -52,13 +52,10 @@ public class Main {
         deck.addCard(c4);
                 
         // Creo juego
-        Game juego = new Game(p1, p2, deck, 8);
+        Game juego = new Game(p1, p2, deck, 4);
 
         // Lo juego
-        for (int i = 0; i < juego.getMaxRounds(); i++) {
-        	juego.play();        	
-        }
-        
+        juego.play();        	
 
     }
 
