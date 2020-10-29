@@ -4,28 +4,25 @@ import java.util.*;
 
 public class Card {
 
-    public static final int MAX_RANDOM = 100;
     private HashMap<String, Integer> attributes;
+    private String heroName;
 
-    public Card(){
-        attributes = new HashMap<>();
+    public Card(String heroName){
+        this.attributes = new HashMap<String, Integer>();
+        this.heroName = heroName;
+    }
+    
+    public String getHeroName() {
+		return heroName;
+	}
+    
+    public int numberOfAttributes() {
+    	return attributes.size();
     }
 
-    /**
-     * Create random card
-     * @param modelCard should be the cardArchetype to create the deck
-     */
-    public Card(Card modelCard) {
-        this();
-        this.attributes = new HashMap<>();
-        ArrayList<String> aux = modelCard.getAttributesName();
-        for (String s : aux)
-            this.addAttribute(s, modelCard.getValueAttribute(s));
-    }
-
-    private int getRandom(){
-        return (int) (Math.random() * MAX_RANDOM);
-    }
+	public void setHeroName(String heroName) {
+		this.heroName = heroName;
+	}
 
     public void addAttribute(String s,Integer b){
         attributes.put(s.toLowerCase(), b);
@@ -34,44 +31,38 @@ public class Card {
     public void removeAttribute(String s){
         attributes.remove(s);
     }
-
-    public HashMap<String, Integer> getAttributes(){
-        return (HashMap<String, Integer>) this.attributes.clone();
-    }
-
-    public ArrayList<String> getAttributesName(){
-        return new ArrayList<>(attributes.keySet());
-    }
-
-    public boolean containsAllAttributes(Card modelCard){
-        return modelCard.validateCard(this);
-    }
-
-//   @Deprecated(since = "Should be compare between key and values, actually only for keys")
+    
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Card card = (Card) o;
-
-        for (Map.Entry<String, Integer> actual: this.attributes.entrySet())
-            if(card.attributes.get(actual.getKey()) == null)
-                return false;
-        return true;
+    	// Una carta se considera igual a la otra si tienen los mismos atributos
+    	try {
+    		Card card = (Card) o;
+    		if (this.numberOfAttributes() != card.numberOfAttributes())
+    			return false;
+    		else {
+    			/* Recorro los atributos. Si alguno de ellos no está
+    			   en la carta que se está comparando, retorno false. */
+    			for (Map.Entry<String, Integer> entry : attributes.entrySet()) {
+    				if ( ! card.hasAttribute(entry.getKey()) )
+    					return false;
+    			}
+    			return true;
+    		}
+    	} catch (Exception e) {
+    		return false;    		
+    	}
     }
 
-    /**
-     * @param c card to be validated
-     * @return card with the same attributes as this
-     */
-    public boolean validateCard(Card c){
-        Set<String> card = this.attributes.keySet();
-        Set<String> modelCard = c.attributes.keySet();
+    private boolean hasAttribute(String key) {
+		return attributes.containsKey(key);
+	}
 
-        return card.equals(modelCard);
+    public String getAttribute(int index) {
+    	List<String> keysAsArray = new ArrayList<String>(attributes.keySet());
+    	return keysAsArray.get(index);
     }
-
-    public int getValueAttribute(String key){
+    
+	public int getValueAttribute(String key){
         try{
             return this.attributes.get(key);
         }catch(Exception e){

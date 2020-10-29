@@ -1,20 +1,28 @@
 package TPE;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class Player {
 
     private String name;
-    private Deck deck;
+    private ArrayList<Card> cards;
+    private GameStrategy gameStrategy;
 
-    public Player(String name){
+    public Player(String name, GameStrategy strategy){
         this.name = name;
-        this.deck = new Deck("Deck-"+name);
+        this.gameStrategy = strategy;
+        this.cards = new ArrayList<>();
     }
 
-    public String getName() {
+    public GameStrategy getGameStrategy() {
+		return gameStrategy;
+	}
+
+	public void setGameStrategy(GameStrategy gameStrategy) {
+		this.gameStrategy = gameStrategy;
+	}
+
+	public String getName() {
         return name;
     }
 
@@ -22,29 +30,37 @@ public class Player {
         this.name = name;
     }
 
-    public void addCard(Card card){
-        deck.addCard(card);
+    public void dealCard(Card card){
+        cards.add(card);
     }
 
-    public void addCards(ArrayList<Card> cards){
-        deck.addCards(cards);
-    }
+	public boolean hasCards() {
+		return cards.size() > 0;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		// Un jugador es igual a otro si tiene el mismo nombre
+		try {
+			Player player = (Player) o;
+			return this.getName().equals(player.getName());
+		} catch (Exception e) {
+			return false;
+		}
+	}
 
-    public boolean isNotEmpty(){
-        return deck.getSize() > 0;
-    }
+	public Card getCard() {
+		Card card = cards.get(0);
+		cards.remove(card);
+		return card;
+	}
+	
+	public int getNumberOfCards() {
+		return cards.size();
+	}
 
-    public Card getCard(){
-        return deck.getCard();
-    }
+	public String getAttribute(Card card) {
+		return gameStrategy.getAttribute(card);
+	}
 
-    public int getCountCards(){
-        return this.deck.getSize();
-    }
-
-    public String getFightAttribute(Card card){
-        List<String> attributeList = card.getAttributesName();
-        Collections.shuffle(attributeList);
-        return attributeList.get(0);
-    }
 }

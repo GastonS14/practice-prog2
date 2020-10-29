@@ -4,37 +4,64 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Card a1= new Card();
-        Card b1 = new Card();
-        Card c1 = new Card();
-        Card d1 = new Card();
+    	// Creo cartas
+        Card c1 = new Card("Superman");
+        Card c2 = new Card("Flash");
+        Card c3 = new Card("Firestorm");
+        Card c4 = new Card("Manhunter");
 
-        a1.addAttribute("Fuerza", 1);
-        a1.addAttribute("Inteligencia", 11);
-        a1.addAttribute("Agilidad", 111);
-        b1.addAttribute("Fuerza", 2);
-        b1.addAttribute("Inteligencia", 22);
-        b1.addAttribute("Agilidad", 222);
-        c1.addAttribute("fuerza", 4);
-        c1.addAttribute("Inteligencia", 44);
-        c1.addAttribute("Agilidad", 444);
-        d1.addAttribute("fuerza", 3);
-        d1.addAttribute("Inteligencia", 33);
-        d1.addAttribute("Agilidad", 333);
+        // Les agrego atributos
+        c1.addAttribute("Altura", 205);
+        c1.addAttribute("Peso", 110);
+        c1.addAttribute("Fuerza", 2000);
+        c1.addAttribute("Peleas ganadas", 990);
+        c1.addAttribute("Velocidad", 400);
+        
+        c2.addAttribute("Altura", 195);
+        c2.addAttribute("Peso", 90);
+        c2.addAttribute("Fuerza", 840);
+        c2.addAttribute("Peleas ganadas", 900);
+        c2.addAttribute("Velocidad", 500000);
 
-        Player a = new Player("Gaston");
-        Player b = new Player("Mariano");
+        c3.addAttribute("Altura", 175);
+        c3.addAttribute("Peso", 70);
+        c3.addAttribute("Fuerza", 700);
+        c3.addAttribute("Peleas ganadas", 855);
+        c3.addAttribute("Velocidad", 220);
 
-        Deck deck = new Deck("Deck de prueba");
-        deck.addCard(a1);
-        deck.addCard(b1);
+        c4.addAttribute("Altura", 185);
+        c4.addAttribute("Peso", 85);
+        c4.addAttribute("Fuerza", 400);
+        c4.addAttribute("Peleas ganadas", 950);
+        c4.addAttribute("Velocidad", 85);
+
+        // Creo estrategia de juego
+        GameStrategy timbero = new Timbero();
+        
+        // Creo jugadores
+        Player p1 = new Player("Gaston", timbero);
+        Player p2 = new Player("Mariano", timbero);
+
+        // Creo mazo
+        Deck deck = new Deck();
+        
+        // Le agrego cartas
         deck.addCard(c1);
-        deck.addCard(d1);
+        deck.addCard(c2);
+        deck.addCard(c3);
+        deck.addCard(c3);
+        deck.addCard(c3);
+        deck.addCard(c3);
+        deck.addCard(c4);
+                
+        // Creo juego
+        Game juego = new Game(p1, p2, deck, 8);
 
-        GameStrategy gameS = new EasyGameStrategy(4);
-        Game game = new Game("prueba", a, b, deck, gameS);
-        game.playGame();
-
+        // Lo juego
+        for (int i = 0; i < juego.getMaxRounds(); i++) {
+        	juego.play();        	
+        }
+        
 
     }
 

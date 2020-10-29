@@ -2,64 +2,108 @@ package TPE;
 
 public class Game {
 
-    private String name;
-    private Player playerA;
-    private Player playerB;
-    private Deck deckGame;
-    // private ArrayList<GameStrategy> strategy;// The game has many strategies
-    private GameStrategy gameStrategy;
-
-    public Game(String name, Player playerA, Player playerB, Deck deckGame, GameStrategy gameStrategy){
-        this.name = name;
-        this.playerA = playerA;
-        this.playerB = playerB;
-        this.deckGame = deckGame;
-        // strategy = new ArrayList<>();
-        // strategy.add(gameStrategy);
-        this.gameStrategy = gameStrategy;
+	private int maxRounds;
+    private Player turnPlayer;
+    private Player nextPlayer;
+    private Deck deck;
+    private int roundsPlayed = 0;
+    
+    public Game(Player playerA, Player playerB, Deck deckGame, int rounds){
+        this.turnPlayer = playerA;
+        this.nextPlayer = playerB;
+        this.deck = deckGame;
+        this.turnPlayer = playerA;
+        this.maxRounds = rounds;
     }
 
-    public String getName() {
-        return name;
+    public int getMaxRounds() {
+    	return maxRounds;
+    }
+    
+    public Deck getDeck() {
+        return deck;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDeck(Deck deckGame) {
+        this.deck = deckGame;
     }
 
-    public Player getPlayerA() {
-        return playerA;
+    public void play() {
+        deck.dealCards(turnPlayer, nextPlayer);
+        if (turnPlayer.hasCards() && nextPlayer.hasCards() && roundsPlayed < maxRounds) {
+        	Card turnPlayerCard = turnPlayer.getCard();
+        	Card nextPlayerCard = nextPlayer.getCard();
+        	String attribute = turnPlayer.getAttribute(turnPlayerCard);
+        	Player roundWinner = getRoundWinner(turnPlayerCard, nextPlayerCard, attribute);
+        	roundsPlayed++;
+        	if ( roundWinner != null) { // Si hubo ganador de la ronda...
+        		roundWinner.dealCard(nextPlayerCard);
+        		roundWinner.dealCard(turnPlayerCard);
+            	printRound(attribute, turnPlayerCard, nextPlayerCard, roundWinner);
+            	// Checkeo si algún jugador se quedó sin cartas
+            	if ( ! turnPlayer.hasCards() || ! nextPlayer.hasCards()) {
+            		printWinner();
+            		return;
+            	}
+            	// Si el que ganó la ronda es diferente al que tiene al turno...
+            	if ( ! roundWinner.equals(turnPlayer))
+            		changeTurn(roundWinner);
+        	} else {
+        		turnPlayer.dealCard(turnPlayerCard);
+        		nextPlayer.dealCard(nextPlayerCard);
+            	printRound(attribute, turnPlayerCard, nextPlayerCard, roundWinner);
+        	}
+        } else {
+        	printWinner();
+        	return;
+        }
     }
 
-    public void setPlayerA(Player playerA) {
-        this.playerA = playerA;
-    }
+	private void changeTurn(Player roundWinner) {
+		Player aux = turnPlayer;
+		turnPlayer = roundWinner;
+		nextPlayer = aux;
+	}
 
-    public Player getPlayerB() {
-        return playerB;
-    }
+	private void printWinner() {
+		if (turnPlayer.getNumberOfCards() > nextPlayer.getNumberOfCards())
+			System.out.println("¡Felicidades " + turnPlayer.getName() + ", has ganado!");
+		else
+			System.out.println("¡Felicidades  " + nextPlayer.getName() + ", has ganado!");		
+	}
 
-    public void setPlayerB(Player playerB) {
-        this.playerB = playerB;
-    }
+	private void printRound(String attribute, Card turnPlayerCard,
+	Card nextPlayerCard, Player roundWinner) {
+		String winner;
+		if (roundWinner == null)
+			winner = "Nadie. Hubo empate";
+		else
+			winner = roundWinner.getName();
+		String msg = "------- Ronda " + roundsPlayed + " -------\n" +
+			"\nEl jugador " + turnPlayer.getName() +
+			" selecciona competir por el atributo " + attribute + 
+			"\nLa carta de " + turnPlayer.getName() + " es " + turnPlayerCard.getHeroName() +
+			" con " + attribute + " " + turnPlayerCard.getValueAttribute(attribute) +
+			"\nLa carta de " + nextPlayer.getName() + " es " + nextPlayerCard.getHeroName() +
+			" con " + attribute + " " + nextPlayerCard.getValueAttribute(attribute) +
+			"\nGana la ronda: " + winner + "\n" +
+			turnPlayer.getName() + " posee ahora " + turnPlayer.getNumberOfCards() +
+			" cartas y " + nextPlayer.getName() + " posee ahora " +
+			nextPlayer.getNumberOfCards() + " cartas\n";
+		System.out.println(msg);
+	}
 
-    public Deck getDeckGame() {
-        return deckGame;
-    }
+	private Player getRoundWinner(Card turnPlayerCard, Card nextPlayerCard, String attribute) {
+		if (turnPlayerCard.getValueAttribute(attribute) >
+		nextPlayerCard.getValueAttribute(attribute))
+			return turnPlayer;
+		else {
+			if (turnPlayerCard.getValueAttribute(attribute) <
+					nextPlayerCard.getValueAttribute(attribute))
+				return nextPlayer;
+			else 
+				return null;
+		}
+	}
 
-    public void setDeckGame(Deck deckGame) {
-        this.deckGame = deckGame;
-    }
-
-    public GameStrategy getGameStrategy(){
-        return this.gameStrategy;
-    }
-
-    public void setGameStrategy(GameStrategy gameStrategy){
-        this.gameStrategy = gameStrategy;
-    }
-
-    public void playGame(){
-        gameStrategy.strategyPlay(this);
-    }
 }

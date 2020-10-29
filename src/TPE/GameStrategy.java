@@ -1,6 +1,7 @@
 package TPE;
 
-public interface GameStrategy {
+public abstract class GameStrategy {
 
-    void strategyPlay(Game game);
+	public abstract String getAttribute(Card card);
+	
 }

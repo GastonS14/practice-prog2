@@ -1,47 +1,49 @@
 package TPE;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Deck {
 
-    private String deckName;
     private ArrayList<Card> cards;
     private Card cardArchetype;
 
-    public Deck(String deckName){
-        this.deckName = deckName;
-        cards = new ArrayList<>();
+    public Deck(){
+        this.cards = new ArrayList<>();
+    }
+    
+    public Deck(ArrayList<Card> cards) {
+    	if (isValid(cards))
+    		this.cards = cards;
     }
 
-    /**
-     * Create random deck
-     * @param modelCard generate a validDeck with a modelCard
-     * @param deckSize generate a deck with this size
-     */
-    public Deck(String deckName, Card modelCard, int deckSize){
-        this(deckName);
-        for(int i=0; i<deckSize; i++)
-            this.addCard(new Card(modelCard));
-    }
+    /* Se considera valido un conjunto de cartas si este no es vacio y
+       cada carta tiene la misma cantidad y los mismos atributos que cardArchetype */
+    private boolean isValid(ArrayList<Card> _cards) {
+    	if (_cards.size() > 0) {
+    		cardArchetype = _cards.get(0); // La primer carta se toma como modelo
+    		for (int i = 0; i < _cards.size(); i++) {
+    			Card card = _cards.get(i);
+    			if ( ! card.equals(cardArchetype) )
+    				return false;
+    		}
+    		return true;
+    	} else
+    		return false;
+	}
 
-    public String getDeckName() {
-        return deckName;
-    }
-
-    public void setDeckName(String deckName) {
-        this.deckName = deckName;
-    }
-
-    public void addCard(Card c){
-        cards.add(c);
-    }
-
-    public void addCards(ArrayList<Card> cards){
-        this.cards.addAll(cards);
-    }
-
-    public void removeCard(Card c){
-        cards.remove(c);
+	public void addCard(Card card){
+		if (card != null) {
+			// La primer carta agregada al mazo se convierte en la cardArchetype
+			if (cards.isEmpty()) {
+				cards.add(card);
+				cardArchetype = card;
+			} else {
+				// Si ya hay cartas en el mazo, la comparo con la cardArchetype
+				if (card.equals(cardArchetype))
+					cards.add(card);    		
+			}			
+		}
     }
 
     /**
@@ -57,55 +59,22 @@ public class Deck {
             return null;
     }
 
-    private Card getCardArchetype() {
-        return cardArchetype;
-    }
-
-    public void setCardArchetype(Card cardArchetype) {
-        this.cardArchetype = cardArchetype;
-    }
-
-    /**
-     * Add card only if valid
-     * @param c Card to be validated
-     */
-    public void addValidCard(Card c){
-        if(cards.isEmpty()){
-            this.addCard(c);
-            cardArchetype = new Card(c);
-            // cardArchetype = c;
-        }else if(this.getCardArchetype().validateCard(c))
-            this.addCard(c);
-    }
-
-    /**
-     * emptyDeck always is valid
-     * @return Boolean Valid deck for a card
-     */
-    public Boolean validateDeck(){
-        if(cards.size() <= 1)
-            return true;
-        Card modelCard = cards.get(0);
-        for (int i = 1; i< cards.size(); i++)
-            if (!cards.get(i).containsAllAttributes(modelCard))
-                return false;
-        return true;
-    }
-
     public int getSize(){
-        return this.cards.size();
+        return cards.size();
     }
 
     public void dealCards(Player playerA, Player playerB){
-        for(int i = cards.size()-1; i>=0; i--){
-            playerA.addCard(cards.get(i));
-            cards.remove(i);
-            i--;
-            if(i > 0){
-                playerB.addCard(cards.get(i));
-                cards.remove(i);
-            }
-        }
+    	Collections.shuffle(cards); // Mezclo las cartas
+    	while (cards.size() > 0) {
+    		Card card = cards.get(0);
+    		playerA.dealCard(card);
+    		cards.remove(card);
+    		if (cards.size() > 0) {
+    			card = cards.get(0);
+    			playerB.dealCard(card);
+    			cards.remove(card);
+    		}
+    	}
     }
 
 }
