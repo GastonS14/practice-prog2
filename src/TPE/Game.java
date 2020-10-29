@@ -30,7 +30,7 @@ public class Game {
 
     public void play() {
         deck.dealCards(turnPlayer, nextPlayer);
-        if (turnPlayer.hasCards() && nextPlayer.hasCards() && roundsPlayed < maxRounds) {
+        if ( ! isGameFinished() ) {
         	Card turnPlayerCard = turnPlayer.getCard();
         	Card nextPlayerCard = nextPlayer.getCard();
         	String attribute = turnPlayer.getAttribute(turnPlayerCard);
@@ -41,9 +41,8 @@ public class Game {
         		roundWinner.dealCard(turnPlayerCard);
             	printRound(attribute, turnPlayerCard, nextPlayerCard, roundWinner);
             	// Checkeo si algún jugador se quedó sin cartas
-            	if ( ! turnPlayer.hasCards() || ! nextPlayer.hasCards()) {
+            	if ( isGameFinished() ) {
             		printWinner();
-            		return;
             	}
             	// Si el que ganó la ronda es diferente al que tiene al turno...
             	if ( ! roundWinner.equals(turnPlayer))
@@ -52,12 +51,17 @@ public class Game {
         		turnPlayer.dealCard(turnPlayerCard);
         		nextPlayer.dealCard(nextPlayerCard);
             	printRound(attribute, turnPlayerCard, nextPlayerCard, roundWinner);
+            	if ( isGameFinished() ) {
+            		printWinner();
+            	}
         	}
-        } else {
-        	printWinner();
-        	return;
         }
     }
+
+    // El juego termina cuando se alcanzan las rondas máximas o algún jugador no tiene más cartas
+	public boolean isGameFinished() {
+		return roundsPlayed == maxRounds || ! turnPlayer.hasCards() || ! nextPlayer.hasCards();
+	}
 
 	private void changeTurn(Player roundWinner) {
 		Player aux = turnPlayer;
@@ -68,8 +72,12 @@ public class Game {
 	private void printWinner() {
 		if (turnPlayer.getNumberOfCards() > nextPlayer.getNumberOfCards())
 			System.out.println("¡Felicidades " + turnPlayer.getName() + ", has ganado!");
-		else
-			System.out.println("¡Felicidades  " + nextPlayer.getName() + ", has ganado!");		
+		else {
+			if (turnPlayer.getNumberOfCards() < nextPlayer.getNumberOfCards())
+				System.out.println("¡Felicidades  " + nextPlayer.getName() + ", has ganado!");
+			else
+				System.out.println("¡EMPATE!");
+		}
 	}
 
 	private void printRound(String attribute, Card turnPlayerCard,

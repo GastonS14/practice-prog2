@@ -49,9 +49,6 @@ public class Main {
         deck.addCard(c1);
         deck.addCard(c2);
         deck.addCard(c3);
-        deck.addCard(c3);
-        deck.addCard(c3);
-        deck.addCard(c3);
         deck.addCard(c4);
                 
         // Creo juego
