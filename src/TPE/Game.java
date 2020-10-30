@@ -40,17 +40,20 @@ public class Game {
         	if ( roundWinner != null) { 
         		roundWinner.dealCard(nextPlayerCard);
         		roundWinner.dealCard(turnPlayerCard);
-            	// Si el que ganó la ronda es diferente al que tiene al turno...
-            	if ( ! roundWinner.equals(turnPlayer))
-            		changeTurn(roundWinner);
         	} else {
         		// Si no hay ganador, les regreso las cartas a los jugadores
         		turnPlayer.dealCard(turnPlayerCard);
         		nextPlayer.dealCard(nextPlayerCard);
         	}
+        	
         	printRound(attribute, turnPlayerCard, nextPlayerCard, roundWinner);
         	if ( isGameFinished() )
         		printWinner();
+        	else {
+        		// Si el que ganó la ronda es diferente al que tiene al turno...
+        		if ( ! roundWinner.equals(turnPlayer))
+        			changeTurn(roundWinner);        		
+        	}
         }
     }
 

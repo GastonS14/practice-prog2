@@ -35,12 +35,14 @@ public class Main {
         c4.addAttribute("Peleas ganadas", 950);
         c4.addAttribute("Velocidad", 85);
 
-        // Creo estrategia de juego
+        // Creo estrategias de juego
         GameStrategy timbero = new Timbero();
+        GameStrategy ambicioso = new Ambicioso();
+        GameStrategy obstinado = new Obstinado("vElOCiDad");
         
         // Creo jugadores
-        Player p1 = new Player("Gaston", timbero);
-        Player p2 = new Player("Mariano", timbero);
+        Player p1 = new Player("Gaston", ambicioso);
+        Player p2 = new Player("Mariano", obstinado);
 
         // Creo mazo
         Deck deck = new Deck();
@@ -52,7 +54,7 @@ public class Main {
         deck.addCard(c4);
                 
         // Creo juego
-        Game juego = new Game(p1, p2, deck, 4);
+        Game juego = new Game(p1, p2, deck, 7);
 
         // Lo juego
         juego.play();        	

@@ -53,22 +53,43 @@ public class Card {
     	}
     }
 
-    private boolean hasAttribute(String key) {
+    public boolean hasAttribute(String key) {
 		return attributes.containsKey(key);
 	}
-
-    public String getAttribute(int index) {
-    	List<String> keysAsArray = new ArrayList<String>(attributes.keySet());
-    	return keysAsArray.get(index);
-    }
     
-	public int getValueAttribute(String key){
-        try{
-            return this.attributes.get(key);
-        }catch(Exception e){
-            e.fillInStackTrace();
-        }
-        return -1;
+	public Integer getValueAttribute(String key){
+		if (this.hasAttribute(key))
+			return attributes.get(key);
+		else
+			return null;
     }
+	
+	public String getKeyAttribute(String key) {
+		if (this.hasAttribute(key))
+			return key;
+		else
+			return null;
+	}
+
+	// elige el atributo que posea el mayor valor
+	public String getMaxAttribute() {
+		// Selecciono el primer entry
+		Map.Entry<String, Integer> maxEntry = attributes.entrySet().iterator().next();
+		if (maxEntry != null) {
+			for (Map.Entry<String, Integer> entry : attributes.entrySet()) {
+				if (entry.getValue() > maxEntry.getValue())
+					maxEntry = entry;
+			}
+			return maxEntry.getKey();			
+		}
+		else
+			return null;
+	}
+
+	public String getRandomValue() {
+		Random generator = new Random();
+		Object[] keys = attributes.keySet().toArray();
+		return (String) keys[generator.nextInt(keys.length)];
+	}
 
 }
