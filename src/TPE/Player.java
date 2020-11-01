@@ -1,8 +1,8 @@
 package TPE;
 
-import java.util.ArrayList;
-
 import TPE.estrategias_de_juego.GameStrategy;
+
+import java.util.ArrayList;
 
 public class Player {
 
@@ -32,10 +32,12 @@ public class Player {
         this.name = name;
     }
 
+    // Gas- dealCard se traduce a repartir carta, por que un jugador deberia repartir?
     public void dealCard(Card card){
         cards.add(card);
     }
 
+	// Gas- cambiar por .isEmpty()
 	public boolean hasCards() {
 		return cards.size() > 0;
 	}
@@ -61,6 +63,8 @@ public class Player {
 		return cards.size();
 	}
 
+	// Gas- si estoy en player y hago .getAttribute me imagino que es un atributo del jugadro, no de la carta
+	// cambiar por getCardAttibute
 	public String getAttribute(Card card) {
 		return gameStrategy.getAttribute(card);
 	}

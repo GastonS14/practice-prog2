@@ -10,7 +10,8 @@ public class Magica extends Potion {
 		this.numero = numero;
 		super.setName(name);
 	}
-	
+
+	// Gas- Si card y attribute no se usan, solo están porque estan en el abstract?
 	@Override
 	public int getValor(Card card, String attribute) {
 		return numero;

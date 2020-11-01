@@ -19,11 +19,13 @@ public class Fortalecedora extends Potion {
 		this.porcentaje = porcentaje;
 	}
 
+	// Gas- Si no se usa el param para que lo t
 	@Override
 	public boolean hasAttribute(String key) {
 		return true;
 	}
 
+	// Gas- Para que necesitas el atributo si ya los tiene la carta y le aplicas la pocion a todos ellos?
 	@Override
 	public int getValor(Card card, String attribute) {
 		int value = card.getValueAttribute(attribute);

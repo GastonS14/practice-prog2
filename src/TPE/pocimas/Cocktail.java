@@ -1,8 +1,8 @@
 package TPE.pocimas;
 
-import java.util.ArrayList;
-
 import TPE.Card;
+
+import java.util.ArrayList;
 
 public class Cocktail extends Potion {
 
@@ -21,9 +21,10 @@ public class Cocktail extends Potion {
 	public int getValor(Card card, String attribute) {
 		int value = 0;
 		for (int i = 0; i < potions.size(); i++) {
+			// Gas- si potion solo es accedida una sola vez no es necesario descargarla y ocupar memoria
+			// Se puede hacer ptions.get(i).hasAttribute(key)
 			Potion potion = potions.get(i);
 			if (potion.hasAttribute(attribute))
-				
 				value += potion.getValor(card, attribute);
 		}
 		return value;
@@ -32,6 +33,8 @@ public class Cocktail extends Potion {
 	@Override
 	public boolean hasAttribute(String key) {
 		for (int i = 0; i < potions.size(); i++) {
+			// Gas- si potion solo es accedida una sola vez no es necesario descargarla y ocupar memoria
+			// Se puede hacer ptions.get(i).hasAttribute(key)
 			Potion potion = potions.get(i);
 			if (potion.hasAttribute(key))
 				return true;

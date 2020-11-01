@@ -35,6 +35,9 @@ public class Selectiva extends Potion {
 		return (int) (value + value * porcentaje); 
 	}
 
+	// Gas- El metodo hasAttribute solo usa la key en este metodo, pero se arrastra el parametro por todos los metodos que heredan de potion solo por este
+	// No será un caso especial este?
+	// Btw: no entendí para que necesitas el método hasAttribute, no sé que hace
 	@Override
 	public boolean hasAttribute(String key) {
 		return key.equals(attribute);

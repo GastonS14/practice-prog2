@@ -1,8 +1,8 @@
 package TPE;
 
-import java.util.ArrayList;
-
 import TPE.pocimas.Potion;
+
+import java.util.ArrayList;
 
 public class Game {
 
@@ -14,7 +14,7 @@ public class Game {
     private ArrayList<Potion> potions;
     
     public Game(Player playerA, Player playerB, Deck deckGame, int rounds){
-        this.turnPlayer = playerA;
+        this.turnPlayer = playerA;// tenes 2 asignaciones a turnPlayer en el constructor
         this.nextPlayer = playerB;
         this.deck = deckGame;
         this.turnPlayer = playerA;
@@ -27,9 +27,15 @@ public class Game {
     }
     
     public boolean hayPocimas() {
+		// Gas- constante en codigo
     	return potions.size() > 0;
     }
-    
+
+    // Gas- Hab√≠a pensado en que la incorporen a la carta directamente (manual), nice!
+	// Lo que no me gusta es que deck.getRandomCard() se vuelve mas ineficiente cuando se asignen las pocimas y pocimas > cartas
+	// imaginate que tenes un mazo de 50 cartas y ten√©s 49 pociones asignadas pero falta 1, segun el metodo busca una carta random
+	// y si ya tiene una pocima no la asigna, osea que puede estar loopeando un monton de veces mas de las que deber√≠a aunque ya sabes a que cartas queres ponerle la pocion y cual no
+	// solo que como no las guardas en una estructura auxiliar en este metodo no podes saberlo
     public void repartirPocimas() {
     	if ( ! deck.isEmpty()) {
     		for (int i = 0; i < potions.size(); i++) {
@@ -62,17 +68,21 @@ public class Game {
     }
 
     public void play() {
+		// Gas- delegar, cuando hago repartir cartas se tienen que repartir las pocimas con las cartas
     	if ( hayPocimas() )
     		repartirPocimas();
         deck.dealCards(turnPlayer, nextPlayer);
         while ( ! isGameFinished() ) {
         	Card turnPlayerCard = turnPlayer.getCard(); // Tomo carta del jugador que tiene el turno
         	Card nextPlayerCard = nextPlayer.getCard(); // Tomo carta del jugador que no tiene el turno
-        	String attribute = turnPlayer.getAttribute(turnPlayerCard); // Atributo por el cual competir·n
+        	String attribute = turnPlayer.getAttribute(turnPlayerCard); // Atributo por el cual competirÔøΩn
         	Player roundWinner = getRoundWinner(turnPlayerCard, nextPlayerCard, attribute); // Ganador de la ronda
         	roundsPlayed++;
         	// Si alguien gano la ronda le doy las dos cartas
-        	if ( roundWinner != null) { 
+        	if ( roundWinner != null) {
+				// Gas- Si tengo que leer lo que dice sin entrar a ver lo que hace
+					// jugador reparte carta y le paso una carta como parametro, suena bastante raro
+					// Lo normal ser√≠a mas como juego.repartirCarta(jugador, carta)
         		roundWinner.dealCard(nextPlayerCard);
         		roundWinner.dealCard(turnPlayerCard);
         	} else {
@@ -81,21 +91,27 @@ public class Game {
         		nextPlayer.dealCard(nextPlayerCard);
         	}
         	printRound(attribute, turnPlayerCard, nextPlayerCard, roundWinner);
+			// Gas- Este if esta de mas, la condicion de corte est√° arriba en el while osea que sabes que termino cuando salga del while
+			// entonces el printWinner podr√≠a estar afuera y solo dejar el if de la linea 102
         	if ( isGameFinished() )
         		printWinner();
         	else {
-        		// Si el que ganÛ la ronda es diferente al que tiene al turno...
+        		// Si el que ganÔøΩ la ronda es diferente al que tiene al turno...
+				// Gas- Si empataron veo que roundWinner devuelve null, y eventualmente se har√° null.equals
+				// Agregar check para cuando sea null
         		if ( ! roundWinner.equals(turnPlayer))
         			changeTurn(roundWinner);        		
         	}
         }
     }
 
-    // El juego termina cuando se alcanzan las rondas m·ximas o alg˙n jugador no tiene m·s cartas
+    // NICEEEEEE!
+    // El juego termina cuando se alcanzan las rondas mÔøΩximas o algÔøΩn jugador no tiene mÔøΩs cartas
 	public boolean isGameFinished() {
 		return roundsPlayed == maxRounds || ! turnPlayer.hasCards() || ! nextPlayer.hasCards();
 	}
 
+	// Gas- No entiendo para que est√© metodo, con un setTurn no era suficiente?
 	private void changeTurn(Player roundWinner) {
 		Player aux = turnPlayer;
 		turnPlayer = roundWinner;
@@ -104,15 +120,16 @@ public class Game {
 
 	private void printWinner() {
 		if (turnPlayer.getNumberOfCards() > nextPlayer.getNumberOfCards())
-			System.out.println("°Felicidades " + turnPlayer.getName() + ", has ganado!");
+			System.out.println("ÔøΩFelicidades " + turnPlayer.getName() + ", has ganado!");
 		else {
 			if (turnPlayer.getNumberOfCards() < nextPlayer.getNumberOfCards())
-				System.out.println("°Felicidades  " + nextPlayer.getName() + ", has ganado!");
+				System.out.println("ÔøΩFelicidades  " + nextPlayer.getName() + ", has ganado!");
 			else
-				System.out.println("°EMPATE!");
+				System.out.println("ÔøΩEMPATE!");
 		}
 	}
 
+	// NICE
 	private void printRound(String attribute, Card turnPlayerCard,
 	Card nextPlayerCard, Player roundWinner) {
 		
@@ -123,14 +140,14 @@ public class Game {
 		if (turnPlayerCard.hasPotion()) {
 			Potion potion = turnPlayerCard.getPotion();
 			if (potion.hasAttribute(attribute)) {
-				extraMsgTurnPlayer = ", se aplicÛ pÛcima\n" +potion.getName()+
+				extraMsgTurnPlayer = ", se aplicÔøΩ pÔøΩcima\n" +potion.getName()+
 				" valor resultante "+potion.getValor(turnPlayerCard, attribute);
 			}
 		}
 		if (nextPlayerCard.hasPotion()) {
 			Potion potion = nextPlayerCard.getPotion();
 			if (potion.hasAttribute(attribute)) {
-				extraMsgNextPlayer = ", se aplicÛ pÛcima\n" +potion.getName()+
+				extraMsgNextPlayer = ", se aplicÔøΩ pÔøΩcima\n" +potion.getName()+
 				" valor resultante "+potion.getValor(nextPlayerCard, attribute);
 			}
 		}
@@ -158,6 +175,8 @@ public class Game {
 	private Player getRoundWinner(Card turnPlayerCard, Card nextPlayerCard, String attribute) {
 		int turnCardValue = turnPlayerCard.getValueAttribute(attribute);
 		int nextCardValue = nextPlayerCard.getValueAttribute(attribute);
+
+		//-----------------------------------------------------------------------------Mismo c√≥digo
 		if (turnPlayerCard.hasPotion()) {
 			Potion potion = turnPlayerCard.getPotion();
 			if (potion.hasAttribute(attribute))
@@ -168,6 +187,7 @@ public class Game {
 			if (potion.hasAttribute(attribute))
 				nextCardValue = potion.getValor(nextPlayerCard, attribute);
 		}
+		//-----------------------------------------------------------------------------
 		if (turnCardValue > nextCardValue)
 			return turnPlayer;
 		else {
