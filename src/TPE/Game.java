@@ -1,5 +1,9 @@
 package TPE;
 
+import java.util.ArrayList;
+
+import TPE.pocimas.Potion;
+
 public class Game {
 
 	private int maxRounds;
@@ -7,6 +11,7 @@ public class Game {
     private Player nextPlayer;
     private Deck deck;
     private int roundsPlayed = 0;
+    private ArrayList<Potion> potions;
     
     public Game(Player playerA, Player playerB, Deck deckGame, int rounds){
         this.turnPlayer = playerA;
@@ -14,8 +19,36 @@ public class Game {
         this.deck = deckGame;
         this.turnPlayer = playerA;
         this.maxRounds = rounds;
+        this.potions = new ArrayList<>();
     }
 
+    public void addPocima(Potion pocima) {
+    	potions.add(pocima);
+    }
+    
+    public boolean hayPocimas() {
+    	return potions.size() > 0;
+    }
+    
+    public void repartirPocimas() {
+    	if ( ! deck.isEmpty()) {
+    		for (int i = 0; i < potions.size(); i++) {
+    			boolean seAsignoPocion = false;
+    			Potion potion = potions.get(i);
+    			while ( ! seAsignoPocion) {
+    				Card card = deck.getRandomCard();
+    				if ( ! card.hasPotion()) {
+    					card.setPotion(potion);
+    					seAsignoPocion = true;
+    				}
+    			}
+    			// Si llego al total de cartas dejo de repartir pocimas
+    			if (i == deck.size() - 1)
+    				return;
+    		}
+    	}
+    }
+    
     public int getMaxRounds() {
     	return maxRounds;
     }
@@ -29,6 +62,8 @@ public class Game {
     }
 
     public void play() {
+    	if ( hayPocimas() )
+    		repartirPocimas();
         deck.dealCards(turnPlayer, nextPlayer);
         while ( ! isGameFinished() ) {
         	Card turnPlayerCard = turnPlayer.getCard(); // Tomo carta del jugador que tiene el turno
@@ -45,7 +80,6 @@ public class Game {
         		turnPlayer.dealCard(turnPlayerCard);
         		nextPlayer.dealCard(nextPlayerCard);
         	}
-        	
         	printRound(attribute, turnPlayerCard, nextPlayerCard, roundWinner);
         	if ( isGameFinished() )
         		printWinner();
@@ -81,32 +115,63 @@ public class Game {
 
 	private void printRound(String attribute, Card turnPlayerCard,
 	Card nextPlayerCard, Player roundWinner) {
-		String winner;
+		
+		String extraMsgTurnPlayer = "";
+		String extraMsgNextPlayer = "";
+		String winner = "";
+		
+		if (turnPlayerCard.hasPotion()) {
+			Potion potion = turnPlayerCard.getPotion();
+			if (potion.hasAttribute(attribute)) {
+				extraMsgTurnPlayer = ", se aplicó pócima\n" +potion.getName()+
+				" valor resultante "+potion.getValor(turnPlayerCard, attribute);
+			}
+		}
+		if (nextPlayerCard.hasPotion()) {
+			Potion potion = nextPlayerCard.getPotion();
+			if (potion.hasAttribute(attribute)) {
+				extraMsgNextPlayer = ", se aplicó pócima\n" +potion.getName()+
+				" valor resultante "+potion.getValor(nextPlayerCard, attribute);
+			}
+		}
 		if (roundWinner == null)
 			winner = "Nadie. Hubo empate";
 		else
 			winner = roundWinner.getName();
-		String msg = "------- Ronda " + roundsPlayed + " -------\n" +
-			"\nEl jugador " + turnPlayer.getName() +
-			" selecciona competir por el atributo " + attribute + 
-			"\nLa carta de " + turnPlayer.getName() + " es " + turnPlayerCard.getHeroName() +
-			" con " + attribute + " " + turnPlayerCard.getValueAttribute(attribute) +
-			"\nLa carta de " + nextPlayer.getName() + " es " + nextPlayerCard.getHeroName() +
-			" con " + attribute + " " + nextPlayerCard.getValueAttribute(attribute) +
-			"\nGana la ronda: " + winner + "\n" +
-			turnPlayer.getName() + " posee ahora " + turnPlayer.getNumberOfCards() +
-			" cartas y " + nextPlayer.getName() + " posee ahora " +
-			nextPlayer.getNumberOfCards() + " cartas\n";
+		
+		String msg =
+		"------- Ronda " + roundsPlayed + " -------\n" +
+		"\nEl jugador " + turnPlayer.getName() +
+		" selecciona competir por el atributo " + attribute + 
+		"\nLa carta de " + turnPlayer.getName() + " es " + turnPlayerCard.getHeroName() +
+		" con " + attribute + " " + turnPlayerCard.getValueAttribute(attribute) + extraMsgTurnPlayer +
+		"\nLa carta de " + nextPlayer.getName() + " es " + nextPlayerCard.getHeroName() + 
+		" con " + attribute + " " + nextPlayerCard.getValueAttribute(attribute) + extraMsgNextPlayer +
+		"\nGana la ronda: " + winner + "\n" +
+		turnPlayer.getName() + " posee ahora " + turnPlayer.getNumberOfCards() +
+		" cartas y " + nextPlayer.getName() + " posee ahora " +
+		nextPlayer.getNumberOfCards() + " cartas\n";
+		
 		System.out.println(msg);
 	}
 
 	private Player getRoundWinner(Card turnPlayerCard, Card nextPlayerCard, String attribute) {
-		if (turnPlayerCard.getValueAttribute(attribute) >
-		nextPlayerCard.getValueAttribute(attribute))
+		int turnCardValue = turnPlayerCard.getValueAttribute(attribute);
+		int nextCardValue = nextPlayerCard.getValueAttribute(attribute);
+		if (turnPlayerCard.hasPotion()) {
+			Potion potion = turnPlayerCard.getPotion();
+			if (potion.hasAttribute(attribute))
+				turnCardValue = potion.getValor(turnPlayerCard, attribute);
+		}
+		if (nextPlayerCard.hasPotion()) {
+			Potion potion = nextPlayerCard.getPotion();
+			if (potion.hasAttribute(attribute))
+				nextCardValue = potion.getValor(nextPlayerCard, attribute);
+		}
+		if (turnCardValue > nextCardValue)
 			return turnPlayer;
 		else {
-			if (turnPlayerCard.getValueAttribute(attribute) <
-					nextPlayerCard.getValueAttribute(attribute))
+			if (turnCardValue < nextCardValue)
 				return nextPlayer;
 			else 
 				return null;

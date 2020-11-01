@@ -2,17 +2,29 @@ package TPE;
 
 import java.util.*;
 
+import TPE.pocimas.Potion;
+
 public class Card {
 
     private HashMap<String, Integer> attributes;
     private String heroName;
+    private Potion potion;
 
     public Card(String heroName){
         this.attributes = new HashMap<String, Integer>();
         this.heroName = heroName;
+        this.potion = null;
     }
-    
-    public String getHeroName() {
+        
+    public Potion getPotion() {
+		return potion;
+	}
+
+	public void setPotion(Potion potion) {
+		this.potion = potion;
+	}
+
+	public String getHeroName() {
 		return heroName;
 	}
     
@@ -86,10 +98,15 @@ public class Card {
 			return null;
 	}
 
-	public String getRandomValue() {
+	// devuelve un atributo al azar
+	public String getRandomAttribute() {
 		Random generator = new Random();
 		Object[] keys = attributes.keySet().toArray();
 		return (String) keys[generator.nextInt(keys.length)];
+	}
+
+	public boolean hasPotion() {
+		return potion != null;
 	}
 
 }

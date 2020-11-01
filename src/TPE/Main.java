@@ -1,5 +1,14 @@
 package TPE;
 
+import TPE.estrategias_de_juego.Ambicioso;
+import TPE.estrategias_de_juego.GameStrategy;
+import TPE.estrategias_de_juego.Obstinado;
+import TPE.estrategias_de_juego.Timbero;
+import TPE.pocimas.Cocktail;
+import TPE.pocimas.Fortalecedora;
+import TPE.pocimas.Magica;
+import TPE.pocimas.Selectiva;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -41,9 +50,18 @@ public class Main {
         GameStrategy obstinado = new Obstinado("vElOCiDad");
         
         // Creo jugadores
-        Player p1 = new Player("Gaston", ambicioso);
-        Player p2 = new Player("Mariano", obstinado);
+        Player p1 = new Player("Gaston", timbero);
+        Player p2 = new Player("Mariano", timbero);
 
+        // Creo pociones
+        Fortalecedora fortalecedora = new Fortalecedora("Fortalecedora", 0.2);
+        Magica nroMagico = new Magica("Número Mágico", 23);
+        Selectiva fuerza = new Selectiva("Pócima Selectiva Fuerza", "fuerZA", 0.35);
+        Cocktail cocktail = new Cocktail("Cocktail");
+        cocktail.addPotion(fortalecedora);
+        cocktail.addPotion(nroMagico);
+        cocktail.addPotion(fuerza);
+        
         // Creo mazo
         Deck deck = new Deck();
         
@@ -55,7 +73,12 @@ public class Main {
                 
         // Creo juego
         Game juego = new Game(p1, p2, deck, 7);
-
+        
+        // Le agrego pociones
+        juego.addPocima(fortalecedora);
+        juego.addPocima(nroMagico);
+        juego.addPocima(cocktail);
+        
         // Lo juego
         juego.play();        	
 

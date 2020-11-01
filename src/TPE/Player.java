@@ -2,6 +2,8 @@ package TPE;
 
 import java.util.ArrayList;
 
+import TPE.estrategias_de_juego.GameStrategy;
+
 public class Player {
 
     private String name;

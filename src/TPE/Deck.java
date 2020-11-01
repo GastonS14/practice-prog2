@@ -59,8 +59,8 @@ public class Deck {
             return null;
     }
 
-    public int getSize(){
-        return cards.size();
+    public boolean isEmpty() {
+    	return cards.size() < 1;
     }
 
     public void dealCards(Player playerA, Player playerB){
@@ -76,5 +76,14 @@ public class Deck {
     		}
     	}
     }
+
+	public Card getRandomCard() {
+		int randomIndex = (int) (Math.random() * cards.size());
+		return cards.get(randomIndex);
+	}
+	
+	public int size() {
+		return cards.size();
+	}
 
 }

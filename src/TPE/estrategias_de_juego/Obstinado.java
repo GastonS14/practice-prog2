@@ -1,4 +1,6 @@
-package TPE;
+package TPE.estrategias_de_juego;
+
+import TPE.Card;
 
 public class Obstinado extends GameStrategy {
 
@@ -18,7 +20,7 @@ public class Obstinado extends GameStrategy {
 		if (card.hasAttribute(attribute) && attribute != null)
 			return card.getKeyAttribute(attribute);
 		else
-			return card.getRandomValue();
+			return card.getRandomAttribute();
 	}
 
 }
