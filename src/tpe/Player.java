@@ -1,17 +1,19 @@
-package TPE;
+package tpe;
+
+import tpe.gameStrategy.GameStrategy;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class Player {
 
     private String name;
     private Deck deck;
+    private GameStrategy gameStrategy;
 
-    public Player(String name){
+    public Player(String name, GameStrategy gameStrategy){
         this.name = name;
-        this.deck = new Deck("Deck-"+name);
+        this.gameStrategy = gameStrategy;
+        this.deck = new Deck();
     }
 
     public String getName() {
@@ -22,16 +24,20 @@ public class Player {
         this.name = name;
     }
 
+    public GameStrategy getGameStrategy() {
+        return gameStrategy;
+    }
+
+    public void setGameStrategy(GameStrategy gameStrategy) {
+        this.gameStrategy = gameStrategy;
+    }
+
     public void addCard(Card card){
         deck.addCard(card);
     }
 
     public void addCards(ArrayList<Card> cards){
         deck.addCards(cards);
-    }
-
-    public boolean isNotEmpty(){
-        return deck.getSize() > 0;
     }
 
     public Card getCard(){
@@ -43,8 +49,15 @@ public class Player {
     }
 
     public String getFightAttribute(Card card){
-        List<String> attributeList = card.getAttributesName();
-        Collections.shuffle(attributeList);
-        return attributeList.get(0);
+        return gameStrategy.getAttribute(card);
     }
+
+    /*
+    public boolean isNotEmpty(){
+        return deck.getSize() > 0;
+    }
+
+     */
+
+
 }

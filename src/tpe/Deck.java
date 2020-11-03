@@ -1,43 +1,26 @@
-package TPE;
+package tpe;
 
 import java.util.ArrayList;
 
 public class Deck {
 
-    private String deckName;
     private ArrayList<Card> cards;
     private Card cardArchetype;
 
-    public Deck(String deckName){
-        this.deckName = deckName;
+    public Deck(){
         cards = new ArrayList<>();
-    }
-
-    /**
-     * Create random deck
-     * @param modelCard generate a validDeck with a modelCard
-     * @param deckSize generate a deck with this size
-     */
-    public Deck(String deckName, Card modelCard, int deckSize){
-        this(deckName);
-        for(int i=0; i<deckSize; i++)
-            this.addCard(new Card(modelCard));
-    }
-
-    public String getDeckName() {
-        return deckName;
-    }
-
-    public void setDeckName(String deckName) {
-        this.deckName = deckName;
     }
 
     public void addCard(Card c){
         cards.add(c);
     }
 
-    public void addCards(ArrayList<Card> cards){
-        this.cards.addAll(cards);
+    public void addValidCard(Card c){
+        if(cards.isEmpty()){
+            this.addCard(c);
+            cardArchetype = c.getCopy();
+        }else if(this.getCardArchetype().validateCard(c))
+            this.addCard(c);
     }
 
     public void removeCard(Card c){
@@ -61,28 +44,11 @@ public class Deck {
         return cardArchetype;
     }
 
-    public void setCardArchetype(Card cardArchetype) {
-        this.cardArchetype = cardArchetype;
-    }
-
-    /**
-     * Add card only if valid
-     * @param c Card to be validated
-     */
-    public void addValidCard(Card c){
-        if(cards.isEmpty()){
-            this.addCard(c);
-            cardArchetype = new Card(c);
-            // cardArchetype = c;
-        }else if(this.getCardArchetype().validateCard(c))
-            this.addCard(c);
-    }
-
     /**
      * emptyDeck always is valid
      * @return Boolean Valid deck for a card
      */
-    public Boolean validateDeck(){
+    public Boolean isValid(){
         if(cards.size() <= 1)
             return true;
         Card modelCard = cards.get(0);
@@ -90,6 +56,10 @@ public class Deck {
             if (!cards.get(i).containsAllAttributes(modelCard))
                 return false;
         return true;
+    }
+
+    public void addCards(ArrayList<Card> cards) {
+        this.cards.addAll(cards);
     }
 
     public int getSize(){

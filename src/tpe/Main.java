@@ -1,13 +1,13 @@
-package TPE;
+package tpe;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        Card a1= new Card();
-        Card b1 = new Card();
-        Card c1 = new Card();
-        Card d1 = new Card();
+        Card a1= new Card("a");
+        Card b1 = new Card("b");
+        Card c1 = new Card("c");
+        Card d1 = new Card("d");
 
         a1.addAttribute("Fuerza", 1);
         a1.addAttribute("Inteligencia", 11);
@@ -22,10 +22,11 @@ public class Main {
         d1.addAttribute("Inteligencia", 33);
         d1.addAttribute("Agilidad", 333);
 
-        Player a = new Player("Gaston");
-        Player b = new Player("Mariano");
+        /*
+         Player a = new Player("Gaston");
+         Player b = new Player("Mariano");
 
-        Deck deck = new Deck("Deck de prueba");
+        Deck deck = new Deck();
         deck.addCard(a1);
         deck.addCard(b1);
         deck.addCard(c1);
@@ -34,6 +35,8 @@ public class Main {
         GameStrategy gameS = new EasyGameStrategy(4);
         Game game = new Game("prueba", a, b, deck, gameS);
         game.playGame();
+
+         */
 
 
     }

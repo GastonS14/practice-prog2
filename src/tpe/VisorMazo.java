@@ -1,4 +1,4 @@
-package TPE;
+package tpe;
 
 import javax.json.Json;
         import javax.json.JsonArray;

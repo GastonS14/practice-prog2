@@ -1,8 +1,8 @@
-package TPE;
+package tpe;
 
 import java.util.ArrayList;
 
-public class EasyGameStrategy implements GameStrategy{
+public class EasyGameStrategy implements GameStrategy {
 
     private int maxRounds;
     public Player turnPlayer;

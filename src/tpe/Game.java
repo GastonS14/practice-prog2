@@ -1,4 +1,6 @@
-package TPE;
+package tpe;
+
+import tpe.gameStrategy.GameStrategy;
 
 public class Game {
 
