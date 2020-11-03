@@ -111,19 +111,3 @@ public class Game {
     }
 }
 
-
-/*
-CODIGO MEJORADO
-            if (roundWinner != null) {
-                roundWinner.addCard(nextPlayerCard);
-                roundWinner.addCard(turnPlayerCard);
-            } else {
-                turnPlayer.addCard(turnPlayerCard);
-                nextPlayer.addCard(nextPlayerCard);
-            }
-
-            if (roundWinner != null && !roundWinner.equals(turnPlayer))
-                changeTurn(roundWinner);
-
-*/
-
