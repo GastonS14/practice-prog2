@@ -1,30 +1,20 @@
-package TPE;
+package tpe;
 
-import java.util.ArrayList;
-
-import TPE.estrategias_de_juego.GameStrategy;
+import tpe.gameStrategy.GameStrategy;
 
 public class Player {
 
     private String name;
-    private ArrayList<Card> cards;
+    private Deck deck;
     private GameStrategy gameStrategy;
 
-    public Player(String name, GameStrategy strategy){
+    public Player(String name, GameStrategy gameStrategy){
         this.name = name;
-        this.gameStrategy = strategy;
-        this.cards = new ArrayList<>();
+        this.gameStrategy = gameStrategy;
+        this.deck = new Deck();
     }
 
-    public GameStrategy getGameStrategy() {
-		return gameStrategy;
-	}
-
-	public void setGameStrategy(GameStrategy gameStrategy) {
-		this.gameStrategy = gameStrategy;
-	}
-
-	public String getName() {
+    public String getName() {
         return name;
     }
 
@@ -32,37 +22,33 @@ public class Player {
         this.name = name;
     }
 
-    public void dealCard(Card card){
-        cards.add(card);
+    public GameStrategy getGameStrategy() {
+        return gameStrategy;
     }
 
-	public boolean hasCards() {
-		return cards.size() > 0;
-	}
-	
-	@Override
-	public boolean equals(Object o) {
-		// Un jugador es igual a otro si tiene el mismo nombre
-		try {
-			Player player = (Player) o;
-			return this.getName().equals(player.getName());
-		} catch (Exception e) {
-			return false;
-		}
-	}
+    public void setGameStrategy(GameStrategy gameStrategy) {
+        this.gameStrategy = gameStrategy;
+    }
 
-	public Card getCard() {
-		Card card = cards.get(0);
-		cards.remove(card);
-		return card;
-	}
-	
-	public int getNumberOfCards() {
-		return cards.size();
-	}
+    public void addCard(Card card){
+        deck.addCard(card);
+    }
 
-	public String getAttribute(Card card) {
-		return gameStrategy.getAttribute(card);
-	}
+    public Card getCard(){
+        return deck.getCard();
+    }
+
+    public int getCountCards(){
+        return this.deck.getSize();
+    }
+
+    public String getFightAttribute(Card card){
+        return gameStrategy.getAttribute(card);
+    }
+
+    public boolean hasCards(){
+        return deck.getSize() > 0;
+    }
+
 
 }

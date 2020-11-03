@@ -1,86 +1,48 @@
-package TPE;
-
-import TPE.estrategias_de_juego.Ambicioso;
-import TPE.estrategias_de_juego.GameStrategy;
-import TPE.estrategias_de_juego.Obstinado;
-import TPE.estrategias_de_juego.Timbero;
-import TPE.pocimas.Cocktail;
-import TPE.pocimas.Fortalecedora;
-import TPE.pocimas.Magica;
-import TPE.pocimas.Selectiva;
+package tpe;
 
 public class Main {
 
     public static void main(String[] args) {
 
-    	// Creo cartas
-        Card c1 = new Card("Superman");
-        Card c2 = new Card("Flash");
-        Card c3 = new Card("Firestorm");
-        Card c4 = new Card("Manhunter");
+        // tengo un json
+        //
 
-        // Les agrego atributos
-        c1.addAttribute("Altura", 205);
-        c1.addAttribute("Peso", 110);
-        c1.addAttribute("Fuerza", 2000);
-        c1.addAttribute("Peleas ganadas", 990);
-        c1.addAttribute("Velocidad", 400);
-        
-        c2.addAttribute("Altura", 195);
-        c2.addAttribute("Peso", 90);
-        c2.addAttribute("Fuerza", 840);
-        c2.addAttribute("Peleas ganadas", 900);
-        c2.addAttribute("Velocidad", 500000);
+        MapObject.convertToObject("src/tpe/resources/superheroes.json");
+        /*
+        Card a1= new Card("a");
+        Card b1 = new Card("b");
+        Card c1 = new Card("c");
+        Card d1 = new Card("d");
 
-        c3.addAttribute("Altura", 175);
-        c3.addAttribute("Peso", 70);
-        c3.addAttribute("Fuerza", 700);
-        c3.addAttribute("Peleas ganadas", 855);
-        c3.addAttribute("Velocidad", 220);
+        a1.addAttribute("Fuerza", 1);
+        a1.addAttribute("Inteligencia", 11);
+        a1.addAttribute("Agilidad", 111);
+        b1.addAttribute("Fuerza", 2);
+        b1.addAttribute("Inteligencia", 22);
+        b1.addAttribute("Agilidad", 222);
+        c1.addAttribute("fuerza", 4);
+        c1.addAttribute("Inteligencia", 44);
+        c1.addAttribute("Agilidad", 444);
+        d1.addAttribute("fuerza", 3);
+        d1.addAttribute("Inteligencia", 33);
+        d1.addAttribute("Agilidad", 333);
 
-        c4.addAttribute("Altura", 185);
-        c4.addAttribute("Peso", 85);
-        c4.addAttribute("Fuerza", 400);
-        c4.addAttribute("Peleas ganadas", 950);
-        c4.addAttribute("Velocidad", 85);
-
-        // Creo estrategias de juego
-        GameStrategy timbero = new Timbero();
-        GameStrategy ambicioso = new Ambicioso();
-        GameStrategy obstinado = new Obstinado("vElOCiDad");
-        
-        // Creo jugadores
-        Player p1 = new Player("Gaston", timbero);
-        Player p2 = new Player("Mariano", timbero);
-
-        // Creo pociones
-        Fortalecedora fortalecedora = new Fortalecedora("Fortalecedora", 0.2);
-        Magica nroMagico = new Magica("Número Mágico", 23);
-        Selectiva fuerza = new Selectiva("Pócima Selectiva Fuerza", "fuerZA", 0.35);
-        Cocktail cocktail = new Cocktail("Cocktail");
-        cocktail.addPotion(fortalecedora);
-        cocktail.addPotion(nroMagico);
-        cocktail.addPotion(fuerza);
-        
-        // Creo mazo
         Deck deck = new Deck();
-        
-        // Le agrego cartas
+        deck.addCard(a1);
+        deck.addCard(b1);
         deck.addCard(c1);
-        deck.addCard(c2);
-        deck.addCard(c3);
-        deck.addCard(c4);
-                
-        // Creo juego
-        Game juego = new Game(p1, p2, deck, 7);
-        
-        // Le agrego pociones
-        juego.addPocima(fortalecedora);
-        juego.addPocima(nroMagico);
-        juego.addPocima(cocktail);
-        
-        // Lo juego
-        juego.play();        	
+        deck.addCard(d1);
+
+        GameStrategy gameS = new Timbero();
+
+        Player a = new Player("Gaston", gameS);
+        Player b = new Player("Mariano", gameS);
+
+        Game game = new Game(6, a, b, deck);
+        game.play();
+         */
+        // VisorMazo.mostrarMazo("src/tpe/resources/superheroes.json");
+
 
     }
 

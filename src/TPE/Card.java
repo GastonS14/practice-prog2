@@ -1,112 +1,75 @@
-package TPE;
+package tpe;
+
+import tpe.potion.Potion;
 
 import java.util.*;
 
-import TPE.pocimas.Potion;
-
 public class Card {
 
-    private HashMap<String, Integer> attributes;
     private String heroName;
     private Potion potion;
+    private HashMap<String, Integer> attributes;
 
     public Card(String heroName){
-        this.attributes = new HashMap<String, Integer>();
         this.heroName = heroName;
-        this.potion = null;
+        attributes = new HashMap<>();
     }
-        
+
+    public Card getCopy(){
+        return new Card(this.heroName);
+    }
+
     public Potion getPotion() {
-		return potion;
-	}
-
-	public void setPotion(Potion potion) {
-		this.potion = potion;
-	}
-
-	public String getHeroName() {
-		return heroName;
-	}
-    
-    public int numberOfAttributes() {
-    	return attributes.size();
+        return potion;
     }
 
-	public void setHeroName(String heroName) {
-		this.heroName = heroName;
-	}
+    public void setPotion(Potion potion) {
+        this.potion = potion;
+    }
+
+    public String getHeroName() {
+        return heroName;
+    }
+
+    public void setHeroName(String heroName) {
+        this.heroName = heroName;
+    }
 
     public void addAttribute(String s,Integer b){
         attributes.put(s.toLowerCase(), b);
     }
 
-    public void removeAttribute(String s){
-        attributes.remove(s);
-    }
-    
-    @Override
-    public boolean equals(Object o) {
-    	// Una carta se considera igual a la otra si tienen los mismos atributos
-    	try {
-    		Card card = (Card) o;
-    		if (this.numberOfAttributes() != card.numberOfAttributes())
-    			return false;
-    		else {
-    			/* Recorro los atributos. Si alguno de ellos no está
-    			   en la carta que se está comparando, retorno false. */
-    			for (Map.Entry<String, Integer> entry : attributes.entrySet()) {
-    				if ( ! card.hasAttribute(entry.getKey()) )
-    					return false;
-    			}
-    			return true;
-    		}
-    	} catch (Exception e) {
-    		return false;    		
-    	}
+    public ArrayList<String> getAttributesName(){
+        return new ArrayList<>(attributes.keySet());
     }
 
-    public boolean hasAttribute(String key) {
-		return attributes.containsKey(key);
-	}
-    
-	public Integer getValueAttribute(String key){
-		if (this.hasAttribute(key))
-			return attributes.get(key);
-		else
-			return null;
+    public boolean containsAllAttributes(Card modelCard){
+        return modelCard.validateCard(this);
     }
-	
-	public String getKeyAttribute(String key) {
-		if (this.hasAttribute(key))
-			return key;
-		else
-			return null;
-	}
 
-	// elige el atributo que posea el mayor valor
-	public String getMaxAttribute() {
-		// Selecciono el primer entry
-		Map.Entry<String, Integer> maxEntry = attributes.entrySet().iterator().next();
-		if (maxEntry != null) {
-			for (Map.Entry<String, Integer> entry : attributes.entrySet()) {
-				if (entry.getValue() > maxEntry.getValue())
-					maxEntry = entry;
-			}
-			return maxEntry.getKey();			
-		}
-		else
-			return null;
-	}
+    /**
+     * @param c card to be validated
+     * @return card with the same attributes as this
+     */
+    public boolean validateCard(Card c){
+        Set<String> card = this.attributes.keySet();
+        Set<String> modelCard = c.attributes.keySet();
 
-	// devuelve un atributo al azar
-	public String getRandomAttribute() {
-		Random generator = new Random();
-		Object[] keys = attributes.keySet().toArray();
-		return (String) keys[generator.nextInt(keys.length)];
-	}
+        return card.equals(modelCard);
+    }
 
-	public boolean hasPotion() {
-		return potion != null;
-	}
+    public Integer getValueAttribute(String key){
+        try{
+            return this.attributes.get(key);
+        }catch(Exception e){
+            e.fillInStackTrace();
+        }
+        return null;
+    }
+
+    public HashMap<String, Integer> getAttributes(){
+        return (HashMap<String, Integer>) this.attributes.clone();
+    }
+
 
 }
