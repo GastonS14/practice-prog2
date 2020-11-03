@@ -2,6 +2,9 @@ package tpe.gameStrategy;
 
 import tpe.Card;
 
+import java.util.Collections;
+import java.util.List;
+
 public class Obstinado extends GameStrategy{
 
     // Elige siempre el mismo atributo para competir, ronda tras ronda.
@@ -16,10 +19,11 @@ public class Obstinado extends GameStrategy{
     @Override
     public String getAttribute(Card card) {
         if(!isChosen){
-            attribute = card.getRandomAttribute();
+            List<String> attribute = card.getAttributesName();
+            Collections.shuffle(attribute);
             isChosen = true;
+            return attribute.get(0);
         }
         return attribute;
-
     }
 }

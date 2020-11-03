@@ -67,25 +67,9 @@ public class Card {
         return null;
     }
 
-    public String getRandomAttribute(){
-        List<String> attributeList = this.getAttributesName();
-        Collections.shuffle(attributeList);
-        return attributeList.get(0);
+    public HashMap<String, Integer> getAttributes(){
+        return (HashMap<String, Integer>) this.attributes.clone();
     }
 
-    // elige el atributo que posea el mayor valor
-    public String getMaxAttribute() {
-        // Selecciono el primer entry
-        Map.Entry<String, Integer> maxEntry = attributes.entrySet().iterator().next();
-        if (maxEntry != null) {
-            for (Map.Entry<String, Integer> entry : attributes.entrySet()) {
-                if (entry.getValue() > maxEntry.getValue())
-                    maxEntry = entry;
-            }
-            return maxEntry.getKey();
-        }
-        else
-            return null;
-    }
 
 }

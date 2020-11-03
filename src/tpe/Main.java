@@ -1,12 +1,10 @@
 package tpe;
 
-import tpe.gameStrategy.GameStrategy;
-import tpe.gameStrategy.Timbero;
-
 public class Main {
 
     public static void main(String[] args) {
 
+        /*
         Card a1= new Card("a");
         Card b1 = new Card("b");
         Card c1 = new Card("c");
@@ -38,8 +36,8 @@ public class Main {
 
         Game game = new Game(6, a, b, deck);
         game.play();
-
-
+         */
+        VisorMazo.mostrarMazo("src/tpe/resources/superheroes.json");
 
     }
 
