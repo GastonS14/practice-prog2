@@ -25,10 +25,7 @@ Empate:
 --------------------------------------------------------------------------------------------------------------
 ---------------IDK---------------
 ---------------IMPROVEMENTS---------------
-CARD// Implement comparator for attributes in Card
-DECK// If i remove the first card of the deck, i lose the archetypeCard
-GAME// Replace 2 player for arrayList of Players(extended)
-GAME// Should be have an arrayList of gameStrategy instead of one
-EASY_GAME_STRATEGY// Win condition should be implement compare
----------------IMPROVEMENTS2---------------
-DECK// Deal cards in different ways -> Interface
+// Reaprtir las pociones random, si hay que hacerlo por lo que leí, así que habría que agregarlas de nuevo
+// Agregar correctamente todos los prints de Pedro
+// Agregar un método que a partir de un json te cree un mazo validado!!!!!!!
+// Testear con varios mazos luego de hacer el punto 3
