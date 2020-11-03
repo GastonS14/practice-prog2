@@ -4,9 +4,10 @@ import tpe.Card;
 
 public class Ambicioso extends GameStrategy{
 
+    // El jugador elige el atributo que posea el mayor valor de su carta del turno.
     @Override
     public String getAttribute(Card card) {
-        return null;
+        return card.getMaxAttribute();
     }
 
 }

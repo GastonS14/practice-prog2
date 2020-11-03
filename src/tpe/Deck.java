@@ -58,10 +58,6 @@ public class Deck {
         return true;
     }
 
-    public void addCards(ArrayList<Card> cards) {
-        this.cards.addAll(cards);
-    }
-
     public int getSize(){
         return this.cards.size();
     }
@@ -71,7 +67,7 @@ public class Deck {
             playerA.addCard(cards.get(i));
             cards.remove(i);
             i--;
-            if(i > 0){
+            if(i >= 0){
                 playerB.addCard(cards.get(i));
                 cards.remove(i);
             }

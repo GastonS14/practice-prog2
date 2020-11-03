@@ -73,8 +73,6 @@ public class Card {
         return attributeList.get(0);
     }
 
-    //---------------------------------------------------------
-
     // elige el atributo que posea el mayor valor
     public String getMaxAttribute() {
         // Selecciono el primer entry
@@ -88,14 +86,6 @@ public class Card {
         }
         else
             return null;
-    }
-
-    public boolean hasAttribute(String key) {
-        return attributes.containsKey(key);
-    }
-
-    public int numberOfAttributes() {
-        return attributes.size();
     }
 
 }

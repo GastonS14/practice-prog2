@@ -2,8 +2,6 @@ package tpe;
 
 import tpe.gameStrategy.GameStrategy;
 
-import java.util.ArrayList;
-
 public class Player {
 
     private String name;
@@ -36,10 +34,6 @@ public class Player {
         deck.addCard(card);
     }
 
-    public void addCards(ArrayList<Card> cards){
-        deck.addCards(cards);
-    }
-
     public Card getCard(){
         return deck.getCard();
     }
@@ -52,12 +46,9 @@ public class Player {
         return gameStrategy.getAttribute(card);
     }
 
-    /*
-    public boolean isNotEmpty(){
+    public boolean hasCards(){
         return deck.getSize() > 0;
     }
-
-     */
 
 
 }

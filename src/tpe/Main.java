@@ -1,5 +1,8 @@
 package tpe;
 
+import tpe.gameStrategy.GameStrategy;
+import tpe.gameStrategy.Timbero;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -22,21 +25,20 @@ public class Main {
         d1.addAttribute("Inteligencia", 33);
         d1.addAttribute("Agilidad", 333);
 
-        /*
-         Player a = new Player("Gaston");
-         Player b = new Player("Mariano");
-
         Deck deck = new Deck();
         deck.addCard(a1);
         deck.addCard(b1);
         deck.addCard(c1);
         deck.addCard(d1);
 
-        GameStrategy gameS = new EasyGameStrategy(4);
-        Game game = new Game("prueba", a, b, deck, gameS);
-        game.playGame();
+        GameStrategy gameS = new Timbero();
 
-         */
+        Player a = new Player("Gaston", gameS);
+        Player b = new Player("Mariano", gameS);
+
+        Game game = new Game(6, a, b, deck);
+        game.play();
+
 
 
     }

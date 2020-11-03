@@ -1,8 +1,14 @@
 package tpe.potion;
 
+import tpe.Card;
+
 public abstract class Potion {
 
     private String name;
+
+    public Potion(String name){
+        this.name = name;
+    }
 
     public String getName() {
         return name;
@@ -12,8 +18,6 @@ public abstract class Potion {
         this.name = name;
     }
 
-    // public abstract int getValor(Card card, String attribute);
-
-    public abstract boolean hasAttribute(String key);
+    public abstract int getValue(Card card, String attribute);
 
 }
