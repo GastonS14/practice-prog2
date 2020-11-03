@@ -4,6 +4,10 @@ public class Main {
 
     public static void main(String[] args) {
 
+        // tengo un json
+        //
+
+        MapObject.convertToObject("src/tpe/resources/superheroes.json");
         /*
         Card a1= new Card("a");
         Card b1 = new Card("b");
@@ -37,7 +41,8 @@ public class Main {
         Game game = new Game(6, a, b, deck);
         game.play();
          */
-        VisorMazo.mostrarMazo("src/tpe/resources/superheroes.json");
+        // VisorMazo.mostrarMazo("src/tpe/resources/superheroes.json");
+
 
     }
 

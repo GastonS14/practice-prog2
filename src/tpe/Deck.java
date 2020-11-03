@@ -7,8 +7,14 @@ public class Deck {
     private ArrayList<Card> cards;
     private Card cardArchetype;
 
+
     public Deck(){
         cards = new ArrayList<>();
+    }
+
+    public Deck(String jsonFile){
+        cards = new ArrayList<>();
+        MapObject.convertToObject(jsonFile);
     }
 
     public void addCard(Card c){
