@@ -24,5 +24,4 @@ public class ByEqualReturnValue extends Potion {
         return returnedValue;
     }
 
-
 }

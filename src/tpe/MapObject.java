@@ -11,34 +11,6 @@ import java.io.InputStream;
 
 public class MapObject {
 
-    public static void mostrarMazo(String jsonFile) {
-        //URL url = getClass().getResource(jsonFile);
-        File jsonInputFile = new File(jsonFile);
-        InputStream is;
-        try {
-            is = new FileInputStream(jsonInputFile);
-            // Creo el objeto JsonReader de Json.
-            JsonReader reader = Json.createReader(is);
-            // Obtenemos el JsonObject a partir del JsonReader.
-            JsonArray cartas = (JsonArray) reader.readObject().getJsonArray("cartas");
-            for (JsonObject carta : cartas.getValuesAs(JsonObject.class)) {
-                String nombreCarta = carta.getString("nombre");
-                JsonObject atributos = (JsonObject) carta.getJsonObject("atributos");
-                String atributosStr = "";
-                for (String nombreAtributo:atributos.keySet())
-                    atributosStr = atributosStr + nombreAtributo + ": " +
-                            atributos.getInt(nombreAtributo) + "; ";
-                System.out.println(nombreCarta+"\t\t\t"+atributosStr);
-            }
-
-            reader.close();
-
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
     public static Deck convertToObject(String jsonFile) {
         File jsonInputFile = new File(jsonFile);
         InputStream is;
@@ -52,25 +24,18 @@ public class MapObject {
             for (JsonObject carta : cartas.getValuesAs(JsonObject.class)) {
                 String nombreCarta = carta.getString("nombre");
                 JsonObject atributos = carta.getJsonObject("atributos");
-
                 Card c = new Card(nombreCarta);
-
                 for (String nombreAtributo : atributos.keySet())
                     c.addAttribute(nombreAtributo, atributos.getInt(nombreAtributo));
                 deck.addCard(c);
             }
-
             reader.close();
+
             return deck;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return null;
         }
-    }
-
-    public static void main(String[] args) {
-        String mazoPath = "src/tpe/resources/superheroes.json";
-        MapObject.convertToObject(mazoPath);
     }
 
 }

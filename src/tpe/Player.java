@@ -50,5 +50,4 @@ public class Player {
         return deck.getSize() > 0;
     }
 
-
 }

@@ -16,8 +16,10 @@ public class Deck {
         Deck deck = MapObject.convertToObject(jsonFile);
         if(deck != null && deck.isValid())
             cards = new ArrayList<>(deck.cards);
-        else
+        else{
+            System.out.println("Mazo invalido");
             cards = new ArrayList<>();
+        }
     }
 
     public void addCard(Card c){

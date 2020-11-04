@@ -172,8 +172,7 @@ public class Game {
     private String getPotionMessage(Card card, String attribute){
         Potion potion = card.getPotion();
         String message;
-        message = ", se aplicó pócima\n" +potion.getName()+ " valor resultante ";
-        //message = ", se aplicó pócima\n" +potion.getName()+ " valor resultante "+potion.getValue(card, attribute);
+        message = ", se aplicó pócima\n" +potion.getName();
         return message;
     }
 }
