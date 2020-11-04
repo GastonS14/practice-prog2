@@ -22,7 +22,13 @@ public class ByHigherValue extends Potion {
     @Override
     public int getValue(Card card, String attribute) {
         int value = card.getValueAttribute(attribute);
+
         return (int) (value + value * percentage);
+    }
+
+    @Override
+    public boolean hasApplied(){
+        return false;
     }
 
 }

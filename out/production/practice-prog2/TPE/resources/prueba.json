@@ -1,0 +1,64 @@
+{
+  "cartas": [
+    {
+      "nombre": "Superman",
+      "atributos": {
+        "altura": 205,
+        "peso": 110,
+        "fuerza": 2000,
+        "peleas ganadas": 990,
+        "velocidad": 400
+      }
+    },
+    {
+      "nombre": "Linterna Verde",
+      "atributos": {
+        "altura": 186,
+        "peso": 90,
+        "fuerza": 710,
+        "peleas ganadas": 845,
+        "velocidad": 220
+      }
+    },
+    {
+      "nombre": "Mantis",
+      "atributos": {
+        "altura": 165,
+        "peso": 80,
+        "fuerza": 110,
+        "peleas ganadas": 7,
+        "velocidad": 99
+      }
+    },
+    {
+      "nombre": "Flecha Verde",
+      "atributos": {
+        "altura": 196,
+        "peso": 99,
+        "fuerza": 830,
+        "peleas ganadas": 910,
+        "velocidad": 340
+      }
+    },
+    {
+      "nombre": "Pedro Picapiedras",
+      "atributos": {
+        "altura": 166,
+        "peso": 199,
+        "fuerza": 430,
+        "peleas ganadas": 1910,
+        "velocidad": 40
+      }
+    },
+    {
+      "nombre": "Doctor Fate",
+      "atributos": {
+        "altura": 200,
+        "peso": 100,
+        "fuerza": 900,
+        "peleas ganadas": 805,
+        "velocidad": 100
+      }
+    }
+  ]
+}

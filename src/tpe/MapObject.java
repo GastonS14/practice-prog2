@@ -40,7 +40,6 @@ public class MapObject {
     }
 
     public static Deck convertToObject(String jsonFile) {
-        //URL url = getClass().getResource(jsonFile);
         File jsonInputFile = new File(jsonFile);
         InputStream is;
         try {
@@ -49,24 +48,20 @@ public class MapObject {
             JsonReader reader = Json.createReader(is);
             // Obtenemos el JsonObject a partir del JsonReader.
             JsonArray cartas = reader.readObject().getJsonArray("cartas");
+            Deck deck = new Deck();
             for (JsonObject carta : cartas.getValuesAs(JsonObject.class)) {
                 String nombreCarta = carta.getString("nombre");
                 JsonObject atributos = carta.getJsonObject("atributos");
 
                 Card c = new Card(nombreCarta);
 
-                String atributosStr = "";
-                for (String nombreAtributo : atributos.keySet()){
+                for (String nombreAtributo : atributos.keySet())
                     c.addAttribute(nombreAtributo, atributos.getInt(nombreAtributo));
-                    atributosStr = atributosStr + nombreAtributo + ": " +
-                            atributos.getInt(nombreAtributo) + "; ";
-                }
-                System.out.println(nombreCarta+"\t\t\t"+atributosStr);
+                deck.addCard(c);
             }
 
             reader.close();
             return deck;
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return null;

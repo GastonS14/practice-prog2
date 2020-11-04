@@ -13,8 +13,11 @@ public class Deck {
     }
 
     public Deck(String jsonFile){
-        cards = new ArrayList<>();
-        MapObject.convertToObject(jsonFile);
+        Deck deck = MapObject.convertToObject(jsonFile);
+        if(deck != null && deck.isValid())
+            cards = new ArrayList<>(deck.cards);
+        else
+            cards = new ArrayList<>();
     }
 
     public void addCard(Card c){
@@ -78,6 +81,19 @@ public class Deck {
                 cards.remove(i);
             }
         }
+    }
+
+    public boolean hasCards() {
+        return !cards.isEmpty();
+    }
+
+    public Card getCardWithoutPotion() {
+        for (int i = 0; i < cards.size(); i++) {
+            Card card = cards.get(i);
+            if (!card.hasPotion() )
+                return card;
+        }
+        return null;
     }
 
 }

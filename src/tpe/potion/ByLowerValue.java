@@ -25,4 +25,9 @@ public class ByLowerValue extends Potion {
         return (int) (value - value * percentage);
     }
 
+    @Override
+    public boolean hasApplied(){
+        return true;
+    }
+
 }

@@ -1,0 +1,24 @@
+{
+  "cartas": [
+    {
+      "nombre": "Mantis",
+      "atributos": {
+        "altura": 165,
+        "peso": 80,
+        "fuerza": 110,
+        "peleas ganadas": 7,
+        "velocidad": 99
+      }
+    },
+    {
+      "nombre": "Flecha Verde",
+      "atributos": {
+        "altu": 196,
+        "peso": 99,
+        "fuerza": 830,
+        "peleas ganadas": 910,
+        "velocidad": 340
+      }
+    }
+  ]
+}

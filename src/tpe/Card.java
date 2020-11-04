@@ -15,6 +15,10 @@ public class Card {
         attributes = new HashMap<>();
     }
 
+    public boolean hasPotion(){
+        return potion != null;
+    }
+
     public Card getCopy(){
         return new Card(this.heroName);
     }
