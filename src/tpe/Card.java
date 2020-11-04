@@ -43,6 +43,11 @@ public class Card {
         attributes.put(s.toLowerCase(), b);
     }
 
+    public void setAttribute(String attribute, int value){
+        if(attributes.containsKey(attribute))
+            attributes.put(attribute, value);
+    }
+
     public ArrayList<String> getAttributesName(){
         return new ArrayList<>(attributes.keySet());
     }

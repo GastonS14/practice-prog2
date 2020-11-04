@@ -20,6 +20,4 @@ public abstract class Potion {
 
     public abstract int getValue(Card card, String attribute);
 
-    public abstract boolean hasApplied();
-
 }

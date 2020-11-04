@@ -24,9 +24,5 @@ public class ByEqualReturnValue extends Potion {
         return returnedValue;
     }
 
-    @Override
-    public boolean hasApplied(){
-        return true;
-    }
 
 }

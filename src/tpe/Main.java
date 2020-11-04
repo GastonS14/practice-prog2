@@ -11,14 +11,15 @@ public class Main {
     public static void main(String[] args) {
 
         Potion p = new ByHigherValueAttribute("por peso", "peso", 0.5);
-        Potion p1 = new ByHigherValueAttribute("por altura", "peso", 1.0);
+        Potion p1 = new ByHigherValueAttribute("por altura", "altura", 1.0);
         Potion p2 = new ByHigherValueAttribute("por velocidad", "velocidad", 2.0);
-        Potion p3 = new ByHigherValueAttribute("por peso4", "peso", 0.1);
+        Potion p3 = new ByHigherValueAttribute("por fuerza", "fuerza", 0.1);
 
         CompositePotion pc = new CompositePotion("pocima compuesta");
         pc.addPotion(p);
         pc.addPotion(p1);
-
+        pc.addPotion(p2);
+        pc.addPotion(p3);
 
         // Deck deck = new Deck("src/tpe/resources/superheroes.json");
         // Deck deck = new Deck("src/tpe/resources/prueba.json");
@@ -30,11 +31,14 @@ public class Main {
         Player b = new Player("Pedro", gameS);
 
         Game game = new Game(3, a, b, deck);
-        /*game.addPotion(p);
+
+        /*
+        game.addPotion(p);
         game.addPotion(p1);
         game.addPotion(p2);
         game.addPotion(p3);
          */
+
         game.addPotion(pc);
 
         game.play();

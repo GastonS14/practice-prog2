@@ -33,15 +33,10 @@ public class ByHigherValueAttribute extends Potion {
     @Override
     public int getValue(Card card, String attribute) {
         int value = card.getValueAttribute(attribute);
-        if(this.attribute.equals(attribute)){
+        if(this.attribute.equals(attribute))
             return (int) (value + value * percentage);
-        }
         else
-            return 0;
+            return value;
     }
 
-    @Override
-    public boolean hasApplied(){
-        return true;
-    }
 }
